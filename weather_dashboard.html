@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ヨーロッパ気象ダッシュボード</title>
+<style>
+:root { color-scheme: light; }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f4f8;color:#1a202c;min-height:100vh;}
+
+/* Header */
+.header{background:linear-gradient(135deg,#1a3a5c,#0d6efd);color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.header h1{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.header-sub{font-size:12px;opacity:.75;margin-top:2px;}
+.header-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.badge{background:rgba(255,255,255,.2);padding:4px 10px;border-radius:20px;font-size:12px;white-space:nowrap;}
+.btn{padding:7px 14px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:500;transition:all .2s;}
+.btn-primary{background:#fff;color:#1a3a5c;}
+.btn-primary:hover{background:#e8f0fe;}
+.btn-outline{background:transparent;border:1px solid rgba(255,255,255,.5);color:#fff;}
+.btn-outline:hover{background:rgba(255,255,255,.15);}
+
+/* Loading */
+.loading{text-align:center;padding:60px 20px;}
+.spinner{width:44px;height:44px;border:4px solid #e2e8f0;border-top:4px solid #0d6efd;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.progress-wrap{width:280px;height:6px;background:#e2e8f0;border-radius:3px;margin:12px auto;}
+.progress-fill{height:100%;background:#0d6efd;border-radius:3px;transition:width .4s;}
+.loading-city{font-size:13px;color:#718096;margin-top:6px;}
+#loading-main{font-size:16px;font-weight:600;color:#2d3748;margin-bottom:4px;}
+
+/* Status bar */
+.status-bar{padding:9px 16px;border-radius:8px;font-size:13px;margin-bottom:16px;display:flex;align-items:center;gap:6px;}
+.status-ok{background:#f0fff4;color:#276749;border:1px solid #c6f6d5;}
+.status-warn{background:#fffbeb;color:#744210;border:1px solid #fef3c7;}
+.status-err{background:#fff5f5;color:#822727;border:1px solid #fed7d7;}
+.status-demo{background:#ebf8ff;color:#2a69ac;border:1px solid #bee3f8;}
+
+/* Container */
+.container{max-width:1300px;margin:0 auto;padding:16px 16px 32px;}
+
+/* Section header */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+.sec-title{font-size:15px;font-weight:700;color:#2d3748;}
+
+/* Stats row */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.stat-card{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.07);text-align:center;}
+.stat-val{font-size:26px;font-weight:700;line-height:1.1;}
+.stat-lbl{font-size:12px;color:#718096;margin-top:4px;}
+
+/* City grid */
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;margin-bottom:20px;}
+.city-card{background:#fff;border-radius:12px;padding:12px 14px;box-shadow:0 1px 3px rgba(0,0,0,.07);cursor:pointer;transition:all .18s;border:2px solid transparent;}
+.city-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1);}
+.city-card.active{border-color:#0d6efd;box-shadow:0 0 0 3px rgba(13,110,253,.15);}
+.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.city-flag{font-size:20px;}
+.city-wemoji{font-size:18px;}
+.city-name{font-size:13px;font-weight:700;color:#2d3748;}
+.city-temp{font-size:26px;font-weight:800;margin:2px 0;}
+.city-range{font-size:11px;color:#a0aec0;}
+.city-desc{font-size:11px;color:#718096;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.city-precip{font-size:11px;color:#4299e1;margin-top:1px;}
+
+.cold{color:#3182ce;} .cool{color:#38a169;} .warm{color:#dd6b20;} .hot{color:#e53e3e;}
+
+/* Chart sections */
+.section{background:#fff;border-radius:12px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.07);margin-bottom:20px;}
+.chart-box{position:relative;height:260px;}
+.chart-box-sm{position:relative;height:200px;}
+.ctrl-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.sel{padding:5px 8px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;background:#fff;}
+.rbtn{padding:3px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;cursor:pointer;background:#fff;transition:all .15s;}
+.rbtn.on{background:#0d6efd;color:#fff;border-color:#0d6efd;}
+.rbtn:hover:not(.on){background:#f7fafc;}
+
+/* Table */
+#tbl-wrap{min-height:160px;}
+
+@media(max-width:640px){
+  .stats-row{grid-template-columns:repeat(2,1fr);}
+  .city-grid{grid-template-columns:repeat(2,1fr);}
+  .header{flex-direction:column;align-items:flex-start;}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridjs@5.0.2/dist/theme/mermaid.min.css" integrity="sha384-GjkHn3zB4TFgTBpAiM8wHn0BE6G+p+FH0bxVT/nIL8PNoMU+5N8wHEQiHKJ3rT0" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/gridjs@5.0.2/dist/gridjs.umd.js" integrity="sha384-/XXDzxe4FsGiAe50i/u9pY/Vy/uX654MHB1xoc1BJNnH1WXHhqHga9g3q5tF4gj7" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>🍜 ヨーロッパ気象ダッシュボード</h1>
+    <div class="header-sub">ラーメン売上相関分析 | Europe Weather Monitor — 13都市 | 2024〜</div>
+  </div>
+  <div class="header-right">
+    <span class="badge" id="last-updated">―</span>
+    <button class="btn btn-outline" onclick="refreshData()">🔄 更新</button>
+    <button class="btn btn-primary" onclick="exportCSV()">📥 CSV出力</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Loading -->
+  <div class="loading" id="loading-sec">
+    <div class="spinner"></div>
+    <div id="loading-main">気象データを取得中...</div>
+    <div>2024年〜本日分を Open-Meteo API から読み込んでいます</div>
+    <div class="progress-wrap"><div class="progress-fill" id="pbar" style="width:0%"></div></div>
+    <div class="loading-city" id="loading-city">初期化中...</div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" style="display:none">
+    <div id="status-bar" class="status-bar status-ok"></div>
+
+    <!-- 今日サマリー -->
+    <div class="sec-hdr">
+      <span class="sec-title">今日の気象状況（クリックで詳細トレンド）</span>
+      <span style="font-size:12px;color:#a0aec0" id="today-label"></span>
+    </div>
+    <div class="city-grid" id="city-grid"></div>
+
+    <!-- 統計 -->
+    <div class="stats-row" id="stats-row"></div>
+
+    <!-- 気温トレンド -->
+    <div class="section">
+      <div class="sec-hdr">
+        <span class="sec-title">📈 気温トレンド</span>
+        <div class="ctrl-row">
+          <select class="sel" id="city-sel" onchange="onCityChange()"></select>
+          <button class="rbtn on" onclick="setRange(30,this)">30日</button>
+          <button class="rbtn" onclick="setRange(90,this)">90日</button>
+          <button class="rbtn" onclick="setRange(180,this)">半年</button>
+          <button class="rbtn" onclick="setRange(365,this)">1年</button>
+          <button class="rbtn" onclick="setRange(0,this)">全期間</button>
+        </div>
+      </div>
+      <div class="chart-box"><canvas id="trend-c"></canvas></div>
+    </div>
+
+    <!-- 今日比較 -->
+    <div class="section">
+      <div class="sec-hdr">
+        <span class="sec-title">🌡 全都市 気温比較（最新日）</span>
+      </div>
+      <div class="chart-box-sm"><canvas id="cmp-c"></canvas></div>
+    </div>
+
+    <!-- 月別平均 -->
+    <div class="section">
+      <div class="sec-hdr">
+        <span class="sec-title">📅 月別平均気温</span>
+        <select class="sel" id="monthly-sel" onchange="renderMonthly()"></select>
+      </div>
+      <div class="chart-box-sm"><canvas id="monthly-c"></canvas></div>
+    </div>
+
+    <!-- 前年比較 -->
+    <div class="section">
+      <div class="sec-hdr">
+        <span class="sec-title">📊 前年比較（月別平均気温）</span>
+        <div class="ctrl-row">
+          <select class="sel" id="ycomp-sel" onchange="renderYearComparison()"></select>
+        </div>
+      </div>
+      <div class="chart-box"><canvas id="ycomp-c"></canvas></div>
+    </div>
+
+    <!-- 前年差 -->
+    <div class="section">
+      <div class="sec-hdr">
+        <span class="sec-title">🌡 前年との気温差（月別）</span>
+        <div class="ctrl-row">
+          <select class="sel" id="ydiff-sel" onchange="renderYearDiff()"></select>
+          <select class="sel" id="ydiff-year" onchange="renderYearDiff()">
+            <option value="2025">2025 vs 2024</option>
+            <option value="2026" selected>2026 vs 2025</option>
+          </select>
+        </div>
+      </div>
+      <div style="font-size:12px;color:#718096;margin-bottom:10px">🔴 赤 = 昨年より暖かい　🔵 青 = 昨年より寒い</div>
+      <div class="chart-box-sm"><canvas id="ydiff-c"></canvas></div>
+    </div>
+
+    <!-- データテーブル -->
+    <div class="section">
+      <div class="sec-hdr">
+        <span class="sec-title">📋 データ一覧</span>
+        <div class="ctrl-row">
+          <select class="sel" id="tbl-mode" onchange="renderTable()">
+            <option value="today">今日</option>
+            <option value="week">直近7日</option>
+            <option value="month">直近30日</option>
+          </select>
+        </div>
+      </div>
+      <div id="tbl-wrap"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ================== 設定 ==================
+const CITIES=[
+  {n:"Paris",      ja:"パリ",          f:"🇫🇷",lat:48.8566,lon: 2.3522,tz:"Europe/Paris"},
+  {n:"London",     ja:"ロンドン",       f:"🇬🇧",lat:51.5074,lon:-0.1278,tz:"Europe/London"},
+  {n:"Berlin",     ja:"ベルリン",       f:"🇩🇪",lat:52.5200,lon:13.4050,tz:"Europe/Berlin"},
+  {n:"Duesseldorf",ja:"デュッセルドルフ",f:"🇩🇪",lat:51.2217,lon: 6.7762,tz:"Europe/Berlin"},
+  {n:"Amsterdam",  ja:"アムステルダム", f:"🇳🇱",lat:52.3676,lon: 4.9041,tz:"Europe/Amsterdam"},
+  {n:"Brussels",   ja:"ブリュッセル",   f:"🇧🇪",lat:50.8503,lon: 4.3517,tz:"Europe/Brussels"},
+  {n:"Stockholm",  ja:"ストックホルム", f:"🇸🇪",lat:59.3293,lon:18.0686,tz:"Europe/Stockholm"},
+  {n:"Copenhagen", ja:"コペンハーゲン", f:"🇩🇰",lat:55.6761,lon:12.5683,tz:"Europe/Copenhagen"},
+  {n:"Milan",      ja:"ミラノ",         f:"🇮🇹",lat:45.4642,lon: 9.1900,tz:"Europe/Rome"},
+  {n:"Rome",       ja:"ローマ",         f:"🇮🇹",lat:41.9028,lon:12.4964,tz:"Europe/Rome"},
+  {n:"Barcelona",  ja:"バルセロナ",     f:"🇪🇸",lat:41.3851,lon: 2.1734,tz:"Europe/Madrid"},
+  {n:"Madrid",     ja:"マドリード",     f:"🇪🇸",lat:40.4168,lon:-3.7038,tz:"Europe/Madrid"},
+  {n:"Lisbon",     ja:"リスボン",       f:"🇵🇹",lat:38.7169,lon:-9.1399,tz:"Europe/Lisbon"},
+  {n:"Warsaw",     ja:"ワルシャワ",     f:"🇵🇱",lat:52.2297,lon:21.0122,tz:"Europe/Warsaw"},
+  {n:"Helsinki",   ja:"ヘルシンキ",     f:"🇫🇮",lat:60.1699,lon:24.9384,tz:"Europe/Helsinki"},
+  {n:"Athens",     ja:"アテネ",         f:"🇬🇷",lat:37.9838,lon:23.7275,tz:"Europe/Athens"},
+];
+
+const WC={0:"快晴",1:"晴れ",2:"晴れ時々曇り",3:"曇り",45:"霧",48:"霧氷",
+  51:"霧雨弱",53:"霧雨",55:"霧雨強",61:"雨弱",63:"雨",65:"大雨",
+  71:"雪弱",73:"雪",75:"大雪",77:"霧雪",80:"にわか雨弱",81:"にわか雨",
+  82:"にわか雨強",85:"にわか雪",86:"にわか雪強",95:"雷雨",96:"雷雨+雹",99:"雷雨+大雹"};
+const WE={0:"☀️",1:"🌤",2:"⛅",3:"☁️",45:"🌫",48:"🌫",51:"🌦",53:"🌦",55:"🌧",
+  61:"🌧",63:"🌧",65:"⛈",71:"🌨",73:"🌨",75:"❄️",80:"🌦",81:"🌧",82:"⛈",95:"⛈",96:"⛈",99:"⛈"};
+
+// ================== 状態 ==================
+let DB={};          // {cityName:[{date,tmax,tmin,tmean,p,wc},...]}
+let selCity=CITIES[0].n;
+let chartDays=30;
+let trendCh=null, cmpCh=null, monthlyCh=null, ycompCh=null, ydiffCh=null;
+let gridInst=null;
+
+// ================== ユーティリティ ==================
+const today=()=>new Date().toISOString().slice(0,10);
+const daysAgo=d=>new Date(Date.now()-d*864e5).toISOString().slice(0,10);
+const fmt1=(v)=>v!=null?v.toFixed(1):'--';
+function tempCls(t){if(t<2)return 'cold';if(t<14)return 'cool';if(t<24)return 'warm';return 'hot';}
+function setProgress(p,txt){
+  document.getElementById('pbar').style.width=p+'%';
+  if(txt)document.getElementById('loading-city').textContent=txt;
+}
+
+// ================== API ==================
+async function apiFetch(url){
+  const r=await fetch(url);
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  return r.json();
+}
+
+function archiveURL(c,s,e){
+  return `https://archive-api.open-meteo.com/v1/archive?latitude=${c.lat}&longitude=${c.lon}&start_date=${s}&end_date=${e}&daily=temperature_2m_max,temperature_2m_min,temperature_2m_mean,precipitation_sum,weathercode&timezone=${encodeURIComponent(c.tz)}`;
+}
+function forecastURL(c){
+  return `https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&daily=temperature_2m_max,temperature_2m_min,temperature_2m_mean,precipitation_sum,weathercode&timezone=${encodeURIComponent(c.tz)}&forecast_days=1`;
+}
+
+function parseRows(data){
+  const d=data.daily;
+  return d.time.map((dt,i)=>({
+    date:dt,
+    tmax:d.temperature_2m_max[i],
+    tmin:d.temperature_2m_min[i],
+    tmean:d.temperature_2m_mean[i],
+    p:d.precipitation_sum[i],
+    wc:d.weathercode?.[i]??d.weather_code?.[i]??null
+  }));
+}
+
+// ================== データ読み込み ==================
+function storageLoad(){
+  try{
+    const s=localStorage.getItem('ramen_ew_v4');
+    if(s){const p=JSON.parse(s);if(p.v===4&&p.db)return p;}
+  }catch{}
+  return null;
+}
+function storageSave(db){
+  try{localStorage.setItem('ramen_ew_v4',JSON.stringify({v:4,saved:today(),db}));}catch{}
+}
+
+async function loadData(force=false){
+  const t=today();
+  const yest=daysAgo(1);
+
+  if(!force){
+    const s=storageLoad();
+    if(s){
+      // キャッシュが今日か昨日のものなら再利用
+      const fresh=(s.saved===t||s.saved===yest);
+      if(fresh&&CITIES.every(c=>(s.db[c.n]||[]).length>0)){
+        DB=s.db;
+        return{src:'cache',saved:s.saved};
+      }
+    }
+  }
+
+  // 既存キャッシュから使える都市データを引き継ぐ
+  const prev=storageLoad();
+  const db=prev?.db||{};
+
+  const start='2024-01-01';
+  const end=yest;
+
+  // データが欠けている都市だけ取得
+  const missing=CITIES.filter(c=>force||!(db[c.n]||[]).length);
+
+  async function fetchWithRetry(url,retries=2,delay=3000){
+    for(let attempt=0;attempt<=retries;attempt++){
+      try{return await apiFetch(url);}
+      catch(e){
+        if(attempt===retries)throw e;
+        await new Promise(r=>setTimeout(r,delay*(attempt+1)));
+      }
+    }
+  }
+
+  for(let i=0;i<missing.length;i++){
+    const c=missing[i];
+    const done=CITIES.length-missing.length+i;
+    setProgress(Math.round(done/CITIES.length*85),`${c.ja} を取得中... (${done+1}/${CITIES.length})`);
+    try{
+      const hist=await fetchWithRetry(archiveURL(c,start,end));
+      const rows=parseRows(hist);
+      try{
+        const fore=await fetchWithRetry(forecastURL(c));
+        const tr=parseRows(fore).filter(r=>r.date===t);
+        rows.push(...tr);
+      }catch{}
+      db[c.n]=rows;
+    }catch(e){
+      console.error(c.n,e);
+      db[c.n]=db[c.n]||[];
+    }
+    // API負荷を分散（都市間は400ms待機）
+    await new Promise(r=>setTimeout(r,400));
+  }
+
+  DB=db;
+  setProgress(95,'保存中...');
+  storageSave(db);
+  return{src:'api'};
+}
+
+// ================== 描画 ==================
+function latest(cn){
+  const rows=DB[cn]||[];
+  return rows.length?rows[rows.length-1]:null;
+}
+
+function renderCityCards(){
+  document.getElementById('city-grid').innerHTML=CITIES.map(c=>{
+    const d=latest(c.n);
+    if(!d)return`<div class="city-card"><div class="card-top"><span class="city-flag">${c.f}</span></div><div class="city-name">${c.ja}</div><div style="font-size:12px;color:#a0aec0">データなし</div></div>`;
+    const tc=tempCls(d.tmean??0);
+    const we=WE[d.wc]||'❓';
+    const wd=WC[d.wc]||'';
+    const sel=c.n===selCity?'active':'';
+    return`<div class="city-card ${sel}" onclick="selectCity('${c.n}')">
+      <div class="card-top"><span class="city-flag">${c.f}</span><span class="city-wemoji">${we}</span></div>
+      <div class="city-name">${c.ja}</div>
+      <div class="city-temp ${tc}">${fmt1(d.tmean)}°</div>
+      <div class="city-range">↑${fmt1(d.tmax)}  ↓${fmt1(d.tmin)}</div>
+      <div class="city-desc">${wd}</div>
+      <div class="city-precip">💧 ${fmt1(d.p)} mm</div>
+    </div>`;
+  }).join('');
+}
+
+function renderStats(){
+  const all=CITIES.map(c=>latest(c.n)).filter(Boolean);
+  if(!all.length)return;
+  const avg=all.reduce((s,d)=>s+(d.tmean??0),0)/all.length;
+  const hot=all.reduce((a,b)=>(a.tmax??-99)>(b.tmax??-99)?a:b);
+  const cold=all.reduce((a,b)=>(a.tmin??99)<(b.tmin??99)?a:b);
+  const hotC=CITIES.find(c=>{const d=latest(c.n);return d&&d.tmax===hot.tmax;});
+  const coldC=CITIES.find(c=>{const d=latest(c.n);return d&&d.tmin===cold.tmin;});
+  const rainy=all.filter(d=>(d.p??0)>1).length;
+  document.getElementById('stats-row').innerHTML=[
+    {v:`${avg.toFixed(1)}°C`,l:'全都市 平均気温',c:'#dd6b20'},
+    {v:`${fmt1(hot.tmax)}°C`,l:`最高 (${hotC?.ja||''})`,c:'#e53e3e'},
+    {v:`${fmt1(cold.tmin)}°C`,l:`最低 (${coldC?.ja||''})`,c:'#3182ce'},
+    {v:`${rainy}/${CITIES.length}都市`,l:'降水あり',c:'#2b6cb0'},
+  ].map(s=>`<div class="stat-card"><div class="stat-val" style="color:${s.c}">${s.v}</div><div class="stat-lbl">${s.l}</div></div>`).join('');
+}
+
+function getRange(){
+  if(chartDays===0)return null;
+  return daysAgo(chartDays);
+}
+
+// 全都市の日別平均を計算
+function getAllCitiesAvg(){
+  // 全都市のデータを日付でまとめる
+  const byDate={};
+  for(const c of CITIES){
+    for(const r of(DB[c.n]||[])){
+      if(!byDate[r.date])byDate[r.date]={tmax:[],tmin:[],tmean:[]};
+      if(r.tmax!=null)byDate[r.date].tmax.push(r.tmax);
+      if(r.tmin!=null)byDate[r.date].tmin.push(r.tmin);
+      if(r.tmean!=null)byDate[r.date].tmean.push(r.tmean);
+    }
+  }
+  const avg=v=>v.length?+(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1):null;
+  return Object.keys(byDate).sort().map(date=>({
+    date,
+    tmax:avg(byDate[date].tmax),
+    tmin:avg(byDate[date].tmin),
+    tmean:avg(byDate[date].tmean),
+    p:null,wc:null
+  }));
+}
+
+function renderTrend(){
+  const isAll=(selCity==='__ALL__');
+  const allRows=isAll?getAllCitiesAvg():(DB[selCity]||[]);
+  const cutoff=getRange();
+  const rows=cutoff?allRows.filter(r=>r.date>=cutoff):allRows;
+  if(trendCh)trendCh.destroy();
+  if(!rows.length)return;
+  const lbl=rows.map(r=>r.date.slice(5));
+  const ctx=document.getElementById('trend-c').getContext('2d');
+  trendCh=new Chart(ctx,{
+    type:'line',
+    data:{labels:lbl,datasets:[
+      {label:'最高',data:rows.map(r=>r.tmax),borderColor:'#e53e3e',backgroundColor:'rgba(229,62,62,.08)',fill:true,pointRadius:0,tension:.3,borderWidth:2},
+      {label:'平均',data:rows.map(r=>r.tmean),borderColor:'#ed8936',borderDash:[4,3],fill:false,pointRadius:0,tension:.3,borderWidth:1.5},
+      {label:'最低',data:rows.map(r=>r.tmin),borderColor:'#4299e1',backgroundColor:'rgba(66,153,225,.08)',fill:true,pointRadius:0,tension:.3,borderWidth:2},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{position:'top',labels:{boxWidth:12,font:{size:12}}},
+        title:{display:isAll,text:'全都市平均（13都市の日別平均値）',font:{size:13},color:'#4a5568'},
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y?.toFixed(1)}°C`}}
+      },
+      scales:{x:{ticks:{maxTicksLimit:14,maxRotation:0,font:{size:11}}},
+        y:{title:{display:true,text:'気温 (°C)',font:{size:11}}}}}
+  });
+}
+
+function renderCompare(){
+  if(cmpCh)cmpCh.destroy();
+  const labels=CITIES.map(c=>c.ja);
+  const ctx=document.getElementById('cmp-c').getContext('2d');
+  cmpCh=new Chart(ctx,{
+    type:'bar',
+    data:{labels,datasets:[
+      {label:'最高',data:CITIES.map(c=>latest(c.n)?.tmax??null),backgroundColor:'rgba(229,62,62,.75)'},
+      {label:'平均',data:CITIES.map(c=>latest(c.n)?.tmean??null),backgroundColor:'rgba(237,137,54,.75)'},
+      {label:'最低',data:CITIES.map(c=>latest(c.n)?.tmin??null),backgroundColor:'rgba(66,153,225,.75)'},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'top',labels:{boxWidth:12,font:{size:12}}}},
+      scales:{x:{ticks:{font:{size:11}}},y:{title:{display:true,text:'°C',font:{size:11}}}}}
+  });
+}
+
+function renderMonthly(){
+  const cn=document.getElementById('monthly-sel').value||selCity;
+  const rows=DB[cn]||[];
+  // 月別集計
+  const byMonth={};
+  for(const r of rows){
+    const ym=r.date.slice(0,7);
+    if(!byMonth[ym])byMonth[ym]={sum:0,cnt:0};
+    if(r.tmean!=null){byMonth[ym].sum+=r.tmean;byMonth[ym].cnt++;}
+  }
+  const months=Object.keys(byMonth).sort();
+  const avgs=months.map(m=>byMonth[m].cnt?+(byMonth[m].sum/byMonth[m].cnt).toFixed(1):null);
+  if(monthlyCh)monthlyCh.destroy();
+  const ctx=document.getElementById('monthly-c').getContext('2d');
+  monthlyCh=new Chart(ctx,{
+    type:'bar',
+    data:{labels:months,datasets:[{
+      label:'月別平均気温',
+      data:avgs,
+      backgroundColor:avgs.map(v=>v==null?'#e2e8f0':v<5?'rgba(66,153,225,.7)':v<15?'rgba(72,187,120,.7)':v<22?'rgba(237,137,54,.7)':'rgba(229,62,62,.7)'),
+      borderRadius:4,
+    }]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.parsed.y}°C`}}},
+      scales:{x:{ticks:{maxRotation:45,font:{size:10}}},y:{title:{display:true,text:'°C',font:{size:11}}}}}
+  });
+}
+
+// 年×月 平均気温を集計（単都市 or 全都市平均）
+function monthlyAvgByYear(cn){
+  // 全都市平均の場合はすべての都市をまとめる
+  const sources=cn==='__ALL__'?CITIES.map(c=>DB[c.n]||[]):[DB[cn]||[]];
+  const byYM={};
+  for(const rows of sources){
+    for(const r of rows){
+      const yr=r.date.slice(0,4);
+      const mo=r.date.slice(5,7);
+      if(!byYM[yr])byYM[yr]={};
+      if(!byYM[yr][mo])byYM[yr][mo]={sum:0,cnt:0};
+      if(r.tmean!=null){byYM[yr][mo].sum+=r.tmean;byYM[yr][mo].cnt++;}
+    }
+  }
+  const res={};
+  for(const [yr,months] of Object.entries(byYM)){
+    res[yr]={};
+    for(const [mo,{sum,cnt}] of Object.entries(months)){
+      res[yr][mo]=cnt?+(sum/cnt).toFixed(1):null;
+    }
+  }
+  return res;
+}
+
+function renderYearComparison(){
+  const cn=document.getElementById('ycomp-sel')?.value||selCity;
+  const data=monthlyAvgByYear(cn);
+  const years=Object.keys(data).sort();
+  const MOS=['01','02','03','04','05','06','07','08','09','10','11','12'];
+  const MLB=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  const COLORS={'2024':'#4299e1','2025':'#ed8936','2026':'#e53e3e','2027':'#9f7aea'};
+  const datasets=years.map(yr=>({
+    label:yr+'年',
+    data:MOS.map(m=>data[yr]?.[m]??null),
+    borderColor:COLORS[yr]||'#a0aec0',
+    backgroundColor:'transparent',
+    pointRadius:4,pointHoverRadius:6,
+    tension:.3,borderWidth:2,spanGaps:true,
+  }));
+  if(ycompCh)ycompCh.destroy();
+  const ctx=document.getElementById('ycomp-c').getContext('2d');
+  ycompCh=new Chart(ctx,{
+    type:'line',
+    data:{labels:MLB,datasets},
+    options:{responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{position:'top',labels:{boxWidth:12,font:{size:12}}},
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y?.toFixed(1)}°C`}}
+      },
+      scales:{
+        x:{ticks:{font:{size:11}}},
+        y:{title:{display:true,text:'月平均気温 (°C)',font:{size:11}}}
+      }}
+  });
+}
+
+function renderYearDiff(){
+  const cn=document.getElementById('ydiff-sel')?.value||selCity;
+  const baseYr=document.getElementById('ydiff-year')?.value||'2026';
+  const prevYr=String(parseInt(baseYr)-1);
+  const data=monthlyAvgByYear(cn);
+  const MOS=['01','02','03','04','05','06','07','08','09','10','11','12'];
+  const MLB=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  const diffs=MOS.map(m=>{
+    const cur=data[baseYr]?.[m],prv=data[prevYr]?.[m];
+    return(cur!=null&&prv!=null)?+(cur-prv).toFixed(1):null;
+  });
+  if(ydiffCh)ydiffCh.destroy();
+  const ctx=document.getElementById('ydiff-c').getContext('2d');
+  ydiffCh=new Chart(ctx,{
+    type:'bar',
+    data:{labels:MLB,datasets:[{
+      label:`${baseYr} vs ${prevYr}（℃差）`,
+      data:diffs,
+      backgroundColor:diffs.map(v=>v==null?'#e2e8f0':v>=0?'rgba(229,62,62,.72)':'rgba(66,153,225,.72)'),
+      borderRadius:4,
+    }]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:c=>{const v=c.parsed.y;return v==null?'データなし':`${v>=0?'+':''}${v}°C`;}}}
+      },
+      scales:{
+        x:{ticks:{font:{size:11}}},
+        y:{
+          title:{display:true,text:'気温差 (°C)',font:{size:11}},
+          grid:{color:ctx2=>ctx2.tick.value===0?'#718096':'#e2e8f0'},
+        }
+      }}
+  });
+}
+
+function renderTable(){
+  const mode=document.getElementById('tbl-mode').value;
+  const cut=mode==='today'?today():mode==='week'?daysAgo(7):daysAgo(30);
+  const rows=[];
+  for(const c of CITIES){
+    const data=(DB[c.n]||[]).filter(r=>mode==='today'?r.date===today():r.date>=cut);
+    for(const r of data){
+      rows.push([r.date,`${c.f} ${c.ja}`,fmt1(r.tmax)+'°',fmt1(r.tmin)+'°',fmt1(r.tmean)+'°',fmt1(r.p)+' mm',WC[r.wc]||'-']);
+    }
+  }
+  const wrap=document.getElementById('tbl-wrap');
+  wrap.innerHTML='';
+  if(gridInst){try{gridInst.destroy();}catch{}}
+  gridInst=new gridjs.Grid({
+    columns:['日付','都市','最高','最低','平均','降水量','天気'],
+    data:rows,sort:true,
+    pagination:{limit:20},
+    search:true,
+    language:{search:{placeholder:'検索...'},pagination:{previous:'◀',next:'▶',showing:'表示',of:'/',to:'〜',results:'件'}},
+    style:{table:{'font-size':'13px'}}
+  }).render(wrap);
+}
+
+// ================== インタラクション ==================
+function selectCity(n){
+  selCity=n;
+  document.getElementById('city-sel').value=n;
+  // 全都市平均は月別・前年比較では個別都市にフォールバック
+  const fallback=(n==='__ALL__')?CITIES[0].n:n;
+  document.getElementById('monthly-sel').value=fallback;
+  const ycs=document.getElementById('ycomp-sel');
+  const yds=document.getElementById('ydiff-sel');
+  if(ycs)ycs.value=fallback; if(yds)yds.value=fallback;
+  renderCityCards();
+  renderTrend();
+  if(n!=='__ALL__'){renderMonthly();renderYearComparison();renderYearDiff();}
+}
+function onCityChange(){
+  selCity=document.getElementById('city-sel').value;
+  const fallback=(selCity==='__ALL__')?CITIES[0].n:selCity;
+  document.getElementById('monthly-sel').value=fallback;
+  const ycs=document.getElementById('ycomp-sel');
+  const yds=document.getElementById('ydiff-sel');
+  if(ycs)ycs.value=fallback; if(yds)yds.value=fallback;
+  renderCityCards();
+  renderTrend();
+  if(selCity!=='__ALL__'){renderMonthly();renderYearComparison();renderYearDiff();}
+}
+function setRange(d,btn){
+  chartDays=d;
+  document.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderTrend();
+}
+
+async function refreshData(){
+  document.getElementById('dashboard').style.display='none';
+  document.getElementById('loading-sec').style.display='block';
+  document.getElementById('loading-main').textContent='データを更新中...';
+  setProgress(0,'準備中...');
+  try{
+    const r=await loadData(true);
+    initDashboard(r);
+  }catch(e){
+    alert('更新に失敗しました: '+e.message);
+    document.getElementById('loading-sec').style.display='none';
+    document.getElementById('dashboard').style.display='block';
+  }
+}
+
+function exportCSV(){
+  const hdr=['date','city','city_ja','temp_max_c','temp_min_c','temp_mean_c','precipitation_mm','weather_code','weather_desc'];
+  const rows=[hdr];
+  for(const c of CITIES){
+    for(const r of(DB[c.n]||[])){
+      rows.push([r.date,c.n,c.ja,r.tmax,r.tmin,r.tmean,r.p,r.wc,WC[r.wc]||'']);
+    }
+  }
+  const csv=rows.map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,﻿'+encodeURIComponent(csv);
+  a.download=`europe_weather_${today()}.csv`;a.click();
+}
+
+// ================== 初期化 ==================
+function initDashboard(result){
+  setProgress(100,'完了！');
+  // セレクト初期化
+  const sel=document.getElementById('city-sel');
+  const msel=document.getElementById('monthly-sel');
+  const cityOpts=CITIES.map(c=>`<option value="${c.n}">${c.ja}</option>`).join('');
+  const opts=`<option value="__ALL__">🌍 全都市平均</option>`+cityOpts;
+  sel.innerHTML=opts; sel.value=selCity;
+  msel.innerHTML=cityOpts; msel.value=selCity==='__ALL__'?CITIES[0].n:selCity;
+  // 前年比較セレクト
+  const ycs=document.getElementById('ycomp-sel');
+  const yds=document.getElementById('ydiff-sel');
+  if(ycs){ycs.innerHTML=opts; ycs.value=selCity;}
+  if(yds){yds.innerHTML=opts; yds.value=selCity;}
+
+  const latestDate=latest(selCity)?.date||'―';
+  document.getElementById('last-updated').textContent='最終: '+latestDate;
+  document.getElementById('today-label').textContent=latestDate;
+
+  // ステータス
+  const sb=document.getElementById('status-bar');
+  if(result.src==='cache'){
+    sb.className='status-bar status-ok';
+    sb.innerHTML=`✅ キャッシュから読み込み（保存日: ${result.saved}）。最新データは「🔄 更新」をクリック。`;
+  }else if(result.src==='api'){
+    sb.className='status-bar status-ok';
+    sb.innerHTML='✅ Open-Meteo API から最新データを取得しました（2024年1月〜本日）';
+  }else{
+    sb.className='status-bar status-demo';
+    sb.innerHTML='ℹ️ デモデータを表示中。「🔄 更新」でAPIから実データを取得できます。';
+  }
+
+  renderCityCards();
+  renderStats();
+  renderTrend();
+  renderCompare();
+  renderMonthly();
+  renderYearComparison();
+  renderYearDiff();
+  renderTable();
+
+  document.getElementById('loading-sec').style.display='none';
+  document.getElementById('dashboard').style.display='block';
+}
+
+// ================== 起動 ==================
+(async()=>{
+  try{
+    setProgress(5,'キャッシュ確認中...');
+    const r=await loadData(false);
+    initDashboard(r);
+  }catch(e){
+    console.error(e);
+    document.getElementById('loading-main').textContent='ネットワークエラー';
+    document.getElementById('loading-city').textContent=e.message;
+    // フォールバック: キャッシュがあれば使う
+    const s=storageLoad();
+    if(s){
+      DB=s.db;
+      initDashboard({src:'cache',saved:s.saved});
+    } else {
+      setProgress(0);
+      document.getElementById('loading-city').textContent='⚠️ データ取得に失敗。インターネット接続を確認し「🔄 更新」を試してください。';
+      setTimeout(()=>{
+        document.getElementById('loading-sec').style.display='none';
+        document.getElementById('dashboard').style.display='block';
+        document.getElementById('status-bar').className='status-bar status-err';
+        document.getElementById('status-bar').innerHTML='❌ データ取得に失敗しました。インターネット接続を確認してから「🔄 更新」をクリックしてください。';
+        DB={}; initDashboard({src:'error'});
+      },2500);
+    }
+  }
+})();
+</script>
+</body>
+</html>
