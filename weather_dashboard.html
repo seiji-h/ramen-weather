@@ -9,7 +9,6 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f4f8;color:#1a202c;min-height:100vh;}
 
-/* Header */
 .header{background:linear-gradient(135deg,#1a3a5c,#0d6efd);color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
 .header h1{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px;}
 .header-sub{font-size:12px;opacity:.75;margin-top:2px;}
@@ -21,7 +20,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .btn-outline{background:transparent;border:1px solid rgba(255,255,255,.5);color:#fff;}
 .btn-outline:hover{background:rgba(255,255,255,.15);}
 
-/* Loading */
 .loading{text-align:center;padding:60px 20px;}
 .spinner{width:44px;height:44px;border:4px solid #e2e8f0;border-top:4px solid #0d6efd;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px;}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -30,34 +28,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .loading-city{font-size:13px;color:#718096;margin-top:6px;}
 #loading-main{font-size:16px;font-weight:600;color:#2d3748;margin-bottom:4px;}
 
-/* Status bar */
 .status-bar{padding:9px 16px;border-radius:8px;font-size:13px;margin-bottom:16px;display:flex;align-items:center;gap:6px;}
 .status-ok{background:#f0fff4;color:#276749;border:1px solid #c6f6d5;}
 .status-warn{background:#fffbeb;color:#744210;border:1px solid #fef3c7;}
 .status-err{background:#fff5f5;color:#822727;border:1px solid #fed7d7;}
 .status-demo{background:#ebf8ff;color:#2a69ac;border:1px solid #bee3f8;}
 
-/* Container */
 .container{max-width:1300px;margin:0 auto;padding:16px 16px 32px;}
-
-/* Section header */
 .sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
 .sec-title{font-size:15px;font-weight:700;color:#2d3748;}
-
-/* Stats row */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
 .stat-card{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.07);text-align:center;}
 .stat-val{font-size:26px;font-weight:700;line-height:1.1;}
 .stat-lbl{font-size:12px;color:#718096;margin-top:4px;}
 
-/* City grid */
 .city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;margin-bottom:20px;}
 .city-card{background:#fff;border-radius:12px;padding:12px 14px;box-shadow:0 1px 3px rgba(0,0,0,.07);cursor:pointer;transition:all .18s;border:2px solid transparent;}
 .city-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1);}
 .city-card.active{border-color:#0d6efd;box-shadow:0 0 0 3px rgba(13,110,253,.15);}
 .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
-.city-flag{font-size:20px;}
-.city-wemoji{font-size:18px;}
+.city-flag{font-size:20px;} .city-wemoji{font-size:18px;}
 .city-name{font-size:13px;font-weight:700;color:#2d3748;}
 .city-temp{font-size:26px;font-weight:800;margin:2px 0;}
 .city-range{font-size:11px;color:#a0aec0;}
@@ -65,10 +55,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .city-precip{font-size:11px;color:#4299e1;margin-top:1px;}
 .cold{color:#3182ce;} .cool{color:#38a169;} .warm{color:#dd6b20;} .hot{color:#e53e3e;}
 
-/* Chart sections */
 .section{background:#fff;border-radius:12px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.07);margin-bottom:20px;}
-.chart-box{position:relative;height:260px;}
-.chart-box-sm{position:relative;height:200px;}
+.chart-box{position:relative;height:280px;}
+.chart-box-sm{position:relative;height:220px;}
 .ctrl-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
 .sel{padding:5px 8px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;background:#fff;}
 .rbtn{padding:3px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;cursor:pointer;background:#fff;transition:all .15s;}
@@ -76,16 +65,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .rbtn:hover:not(.on){background:#f7fafc;}
 #tbl-wrap{min-height:160px;}
 
-/* Tab Navigation */
+/* Tabs */
 .tab-nav{display:flex;gap:0;margin-bottom:20px;border-bottom:2px solid #e2e8f0;}
 .tab-btn{padding:10px 22px;border:2px solid transparent;border-bottom:none;border-radius:8px 8px 0 0;cursor:pointer;font-size:13px;font-weight:600;background:transparent;color:#718096;transition:all .2s;margin-bottom:-2px;}
 .tab-btn.active{background:#fff;color:#2d3748;border-color:#e2e8f0;border-bottom:2px solid #fff;}
 .tab-btn:hover:not(.active){background:#edf2f7;color:#4a5568;}
 
-/* Eco section */
+/* Eco */
 .eco-loading-inner{text-align:center;padding:50px 20px;color:#718096;font-size:13px;}
 .eco-spinner{width:36px;height:36px;border:3px solid #e2e8f0;border-top:3px solid #38a169;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px;}
-.data-note{font-size:11px;color:#a0aec0;margin-top:6px;font-style:italic;}
+.rw-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:#718096;margin-bottom:10px;}
+.rw-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:4px;}
 
 @media(max-width:640px){
   .stats-row{grid-template-columns:repeat(2,1fr);}
@@ -103,7 +93,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="header">
   <div>
     <h1>🍜 ヨーロッパ気象・経済指標ダッシュボード</h1>
-    <div class="header-sub">ラーメン売上相関分析 | Europe Weather &amp; Economy Monitor — 19都市 | 2024〜</div>
+    <div class="header-sub">ラーメン売上相関分析 | Europe Weather &amp; Economy — 19都市 | 2024〜</div>
   </div>
   <div class="header-right">
     <span class="badge" id="last-updated">―</span>
@@ -113,8 +103,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <div class="container">
-
-  <!-- Loading -->
   <div class="loading" id="loading-sec">
     <div class="spinner"></div>
     <div id="loading-main">気象データを取得中...</div>
@@ -123,10 +111,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="loading-city" id="loading-city">初期化中...</div>
   </div>
 
-  <!-- Dashboard -->
   <div id="dashboard" style="display:none">
-
-    <!-- Tab Navigation -->
     <div class="tab-nav">
       <button class="tab-btn active" id="tab-weather-btn" onclick="switchTab('weather')">🌡 気象データ</button>
       <button class="tab-btn" id="tab-eco-btn" onclick="switchTab('eco')">📊 経済指標</button>
@@ -135,7 +120,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <!-- ===== 気象タブ ===== -->
     <div id="tab-weather">
       <div id="status-bar" class="status-bar status-ok"></div>
-
       <div class="sec-hdr">
         <span class="sec-title">今日の気象状況（クリックで詳細トレンド）</span>
         <span style="font-size:12px;color:#a0aec0" id="today-label"></span>
@@ -213,71 +197,56 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
     <!-- ===== 経済指標タブ ===== -->
     <div id="tab-eco" style="display:none">
-      <!-- Loading state -->
       <div id="eco-loading-div" class="eco-loading-inner">
         <div class="eco-spinner"></div>
         <div id="eco-loading-msg">Eurostatからデータを取得中...</div>
         <div style="font-size:12px;color:#a0aec0;margin-top:6px">EU統計局（Eurostat）公開APIに接続中</div>
       </div>
-      <!-- Content -->
       <div id="eco-content" style="display:none">
         <div id="eco-status-bar" class="status-bar" style="display:none;margin-bottom:16px"></div>
 
-        <!-- インフレ率トレンド -->
+        <!-- 実質賃金成長率トレンド -->
         <div class="section">
           <div class="sec-hdr">
-            <span class="sec-title">📈 インフレ率トレンド（HICP 前年比 %）</span>
+            <span class="sec-title">📊 実質賃金成長率（賃金上昇率 − インフレ率）</span>
             <div class="ctrl-row">
-              <select class="sel" id="eco-country-sel" onchange="renderInflationTrend()"></select>
+              <select class="sel" id="rw-country-sel" onchange="renderRealWageTrend()"></select>
             </div>
           </div>
-          <div style="font-size:12px;color:#718096;margin-bottom:8px">出典: Eurostat HICP（調和消費者物価指数）前年比 ／ 2022年〜</div>
+          <div style="font-size:12px;color:#718096;margin-bottom:4px">出典: Eurostat LCI年次（賃金） + HICP月次（インフレ） ／ 実質賃金 = 賃金上昇率 − インフレ率</div>
+          <div style="font-size:12px;margin-bottom:10px">
+            <span style="color:#38a169;font-weight:600">▲ プラス</span> = 実質購買力上昇
+            <span style="color:#e53e3e;font-weight:600">▼ マイナス</span> = 実質購買力低下 → 外食控えの要因
+          </div>
+          <div class="chart-box"><canvas id="rw-trend-c"></canvas></div>
+        </div>
+
+        <!-- 国別比較 -->
+        <div class="section">
+          <div class="sec-hdr">
+            <span class="sec-title">🌍 実質賃金成長率 国別比較（直近年）</span>
+            <span id="rw-latest-year" style="font-size:12px;color:#a0aec0"></span>
+          </div>
+          <div class="chart-box-sm"><canvas id="rw-cmp-c"></canvas></div>
+        </div>
+
+        <!-- インフレ率参考 -->
+        <div class="section">
+          <div class="sec-hdr">
+            <span class="sec-title">📈 インフレ率（月次 HICP 前年比 %）参考</span>
+            <div class="ctrl-row">
+              <select class="sel" id="eco-inf-sel" onchange="renderInflationTrend()"></select>
+            </div>
+          </div>
+          <div style="font-size:12px;color:#718096;margin-bottom:8px">出典: Eurostat HICP（調和消費者物価指数）前年比 ／ 2015年〜</div>
           <div class="chart-box"><canvas id="inflation-trend-c"></canvas></div>
         </div>
 
-        <!-- 最新インフレ率比較 -->
-        <div class="section">
-          <div class="sec-hdr">
-            <span class="sec-title">🌍 最新インフレ率 国別比較</span>
-            <span id="inflation-latest-period" style="font-size:12px;color:#a0aec0"></span>
-          </div>
-          <div class="chart-box-sm"><canvas id="inflation-cmp-c"></canvas></div>
-        </div>
-
-        <!-- 労働コスト指数 -->
-        <div class="section">
-          <div class="sec-hdr">
-            <span class="sec-title">💼 労働コスト指数（前年同期比 %）</span>
-            <div class="ctrl-row">
-              <select class="sel" id="wage-country-sel" onchange="renderWageGrowth()"></select>
-            </div>
-          </div>
-          <div style="font-size:12px;color:#718096;margin-bottom:8px">出典: Eurostat LCI（四半期） ／ 賃金上昇率の代理指標 ／ B-S業種</div>
-          <div class="chart-box"><canvas id="wage-c"></canvas></div>
-        </div>
-
-        <!-- 最低賃金 -->
-        <div class="section">
-          <div class="sec-hdr">
-            <span class="sec-title">💶 最低賃金（月額 EUR）</span>
-            <div class="ctrl-row">
-              <select class="sel" id="mw-view-sel" onchange="onMwViewChange()">
-                <option value="bar">最新比較（全国）</option>
-                <option value="trend">推移トレンド</option>
-              </select>
-              <select class="sel" id="mw-country-sel" onchange="renderMinWage()" style="display:none"></select>
-            </div>
-          </div>
-          <div style="font-size:12px;color:#718096;margin-bottom:4px">出典: Eurostat earn_mw_avgr2（半年更新）</div>
-          <div class="data-note">※ スイス・スウェーデン・デンマーク・フィンランド・イタリアには法定最低賃金制度がありません</div>
-          <div class="chart-box-sm" style="margin-top:12px"><canvas id="mw-c"></canvas></div>
-        </div>
-
-      </div><!-- end eco-content -->
+      </div>
     </div><!-- end tab-eco -->
 
-  </div><!-- end dashboard -->
-</div><!-- end container -->
+  </div>
+</div>
 
 <script>
 // ================== 気象設定 ==================
@@ -302,7 +271,6 @@ const CITIES=[
   {n:"Geneva",      ja:"ジュネーブ",      f:"🇨🇭",lat:46.2044,lon: 6.1432,tz:"Europe/Zurich"},
   {n:"Luxembourg",  ja:"ルクセンブルク",  f:"🇱🇺",lat:49.6116,lon: 6.1319,tz:"Europe/Luxembourg"},
 ];
-
 const WC={0:"快晴",1:"晴れ",2:"晴れ時々曇り",3:"曇り",45:"霧",48:"霧氷",
   51:"霧雨弱",53:"霧雨",55:"霧雨強",61:"雨弱",63:"雨",65:"大雨",
   71:"雪弱",73:"雪",75:"大雪",77:"霧雪",80:"にわか雨弱",81:"にわか雨",
@@ -310,14 +278,9 @@ const WC={0:"快晴",1:"晴れ",2:"晴れ時々曇り",3:"曇り",45:"霧",48:"�
 const WE={0:"☀️",1:"🌤",2:"⛅",3:"☁️",45:"🌫",48:"🌫",51:"🌦",53:"🌦",55:"🌧",
   61:"🌧",63:"🌧",65:"⛈",71:"🌨",73:"🌨",75:"❄️",80:"🌦",81:"🌧",82:"⛈",95:"⛈",96:"⛈",99:"⛈"};
 
-// ================== 状態 ==================
-let DB={};
-let selCity=CITIES[0].n;
-let chartDays=30;
-let trendCh=null,cmpCh=null,monthlyCh=null,ycompCh=null,ydiffCh=null;
-let gridInst=null;
+let DB={},selCity=CITIES[0].n,chartDays=30;
+let trendCh=null,cmpCh=null,monthlyCh=null,ycompCh=null,ydiffCh=null,gridInst=null;
 
-// ================== ユーティリティ ==================
 const today=()=>new Date().toISOString().slice(0,10);
 const daysAgo=d=>new Date(Date.now()-d*864e5).toISOString().slice(0,10);
 const fmt1=(v)=>v!=null?v.toFixed(1):'--';
@@ -327,187 +290,109 @@ function setProgress(p,txt){
   if(txt)document.getElementById('loading-city').textContent=txt;
 }
 
-// ================== API ==================
-async function apiFetch(url){
-  const r=await fetch(url);
-  if(!r.ok)throw new Error('HTTP '+r.status);
-  return r.json();
-}
-function archiveURL(c,s,e){
-  return `https://archive-api.open-meteo.com/v1/archive?latitude=${c.lat}&longitude=${c.lon}&start_date=${s}&end_date=${e}&daily=temperature_2m_max,temperature_2m_min,temperature_2m_mean,precipitation_sum,weathercode&timezone=${encodeURIComponent(c.tz)}`;
-}
-function forecastURL(c){
-  return `https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&daily=temperature_2m_max,temperature_2m_min,temperature_2m_mean,precipitation_sum,weathercode&timezone=${encodeURIComponent(c.tz)}&forecast_days=1`;
-}
+async function apiFetch(url){const r=await fetch(url);if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
+function archiveURL(c,s,e){return`https://archive-api.open-meteo.com/v1/archive?latitude=${c.lat}&longitude=${c.lon}&start_date=${s}&end_date=${e}&daily=temperature_2m_max,temperature_2m_min,temperature_2m_mean,precipitation_sum,weathercode&timezone=${encodeURIComponent(c.tz)}`;}
+function forecastURL(c){return`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&daily=temperature_2m_max,temperature_2m_min,temperature_2m_mean,precipitation_sum,weathercode&timezone=${encodeURIComponent(c.tz)}&forecast_days=1`;}
 function parseRows(data){
   const d=data.daily;
-  return d.time.map((dt,i)=>({
-    date:dt,tmax:d.temperature_2m_max[i],tmin:d.temperature_2m_min[i],
-    tmean:d.temperature_2m_mean[i],p:d.precipitation_sum[i],
-    wc:d.weathercode?.[i]??d.weather_code?.[i]??null
-  }));
+  return d.time.map((dt,i)=>({date:dt,tmax:d.temperature_2m_max[i],tmin:d.temperature_2m_min[i],
+    tmean:d.temperature_2m_mean[i],p:d.precipitation_sum[i],wc:d.weathercode?.[i]??d.weather_code?.[i]??null}));
 }
 
-// ================== データ読み込み ==================
-const CACHE_KEY='ramen_ew_v5';
+const WKEY='ramen_ew_v5';
 function storageLoad(){
-  try{
-    const s=localStorage.getItem(CACHE_KEY);
-    if(s){const p=JSON.parse(s);if(p.v===5&&p.db)return p;}
-  }catch{}
-  return null;
+  try{const s=localStorage.getItem(WKEY);if(s){const p=JSON.parse(s);if(p.v===5&&p.db)return p;}}catch{}return null;
 }
-function storageSave(db){
-  try{localStorage.setItem(CACHE_KEY,JSON.stringify({v:5,saved:today(),db}));}catch{}
-}
+function storageSave(db){try{localStorage.setItem(WKEY,JSON.stringify({v:5,saved:today(),db}));}catch{}}
 
 async function loadData(force=false){
-  const t=today();
-  const yest=daysAgo(1);
+  const t=today(),yest=daysAgo(1);
   if(!force){
     const s=storageLoad();
-    if(s){
-      const fresh=(s.saved===t||s.saved===yest);
-      if(fresh&&CITIES.every(c=>(s.db[c.n]||[]).length>0)){
-        DB=s.db;
-        return{src:'cache',saved:s.saved};
-      }
-    }
+    if(s&&(s.saved===t||s.saved===yest)&&CITIES.every(c=>(s.db[c.n]||[]).length>0)){DB=s.db;return{src:'cache',saved:s.saved};}
   }
-  const prev=storageLoad();
-  const db=prev?.db||{};
-  const start='2024-01-01';
-  const end=yest;
+  const prev=storageLoad();const db=prev?.db||{};
   const missing=CITIES.filter(c=>force||!(db[c.n]||[]).length);
-
   async function fetchWithRetry(url,retries=2,delay=3000){
-    for(let attempt=0;attempt<=retries;attempt++){
-      try{return await apiFetch(url);}
-      catch(e){
-        if(attempt===retries)throw e;
-        await new Promise(r=>setTimeout(r,delay*(attempt+1)));
-      }
-    }
+    for(let a=0;a<=retries;a++){try{return await apiFetch(url);}catch(e){if(a===retries)throw e;await new Promise(r=>setTimeout(r,delay*(a+1)));}}
   }
-
   for(let i=0;i<missing.length;i++){
-    const c=missing[i];
-    const done=CITIES.length-missing.length+i;
+    const c=missing[i],done=CITIES.length-missing.length+i;
     setProgress(Math.round(done/CITIES.length*85),`${c.ja} を取得中... (${done+1}/${CITIES.length})`);
     try{
-      const hist=await fetchWithRetry(archiveURL(c,start,end));
+      const hist=await fetchWithRetry(archiveURL(c,'2024-01-01',yest));
       const rows=parseRows(hist);
-      try{
-        const fore=await fetchWithRetry(forecastURL(c));
-        const tr=parseRows(fore).filter(r=>r.date===t);
-        rows.push(...tr);
-      }catch{}
+      try{const fore=await fetchWithRetry(forecastURL(c));rows.push(...parseRows(fore).filter(r=>r.date===t));}catch{}
       db[c.n]=rows;
-    }catch(e){
-      console.error(c.n,e);
-      db[c.n]=db[c.n]||[];
-    }
+    }catch(e){console.error(c.n,e);db[c.n]=db[c.n]||[];}
     await new Promise(r=>setTimeout(r,400));
   }
-  DB=db;
-  setProgress(95,'保存中...');
-  storageSave(db);
-  return{src:'api'};
+  DB=db;setProgress(95,'保存中...');storageSave(db);return{src:'api'};
 }
 
-// ================== 気象描画 ==================
-function latest(cn){
-  const rows=DB[cn]||[];
-  return rows.length?rows[rows.length-1]:null;
-}
+function latest(cn){const rows=DB[cn]||[];return rows.length?rows[rows.length-1]:null;}
 function renderCityCards(){
   document.getElementById('city-grid').innerHTML=CITIES.map(c=>{
     const d=latest(c.n);
     if(!d)return`<div class="city-card"><div class="card-top"><span class="city-flag">${c.f}</span></div><div class="city-name">${c.ja}</div><div style="font-size:12px;color:#a0aec0">データなし</div></div>`;
-    const tc=tempCls(d.tmean??0);
-    const we=WE[d.wc]||'❓';
-    const wd=WC[d.wc]||'';
-    const sel=c.n===selCity?'active':'';
+    const tc=tempCls(d.tmean??0),we=WE[d.wc]||'❓',wd=WC[d.wc]||'',sel=c.n===selCity?'active':'';
     return`<div class="city-card ${sel}" onclick="selectCity('${c.n}')">
       <div class="card-top"><span class="city-flag">${c.f}</span><span class="city-wemoji">${we}</span></div>
       <div class="city-name">${c.ja}</div>
       <div class="city-temp ${tc}">${fmt1(d.tmean)}°</div>
       <div class="city-range">↑${fmt1(d.tmax)}  ↓${fmt1(d.tmin)}</div>
-      <div class="city-desc">${wd}</div>
-      <div class="city-precip">💧 ${fmt1(d.p)} mm</div>
+      <div class="city-desc">${wd}</div><div class="city-precip">💧 ${fmt1(d.p)} mm</div>
     </div>`;
   }).join('');
 }
 function renderStats(){
-  const all=CITIES.map(c=>latest(c.n)).filter(Boolean);
-  if(!all.length)return;
+  const all=CITIES.map(c=>latest(c.n)).filter(Boolean);if(!all.length)return;
   const avg=all.reduce((s,d)=>s+(d.tmean??0),0)/all.length;
   const hot=all.reduce((a,b)=>(a.tmax??-99)>(b.tmax??-99)?a:b);
   const cold=all.reduce((a,b)=>(a.tmin??99)<(b.tmin??99)?a:b);
   const hotC=CITIES.find(c=>{const d=latest(c.n);return d&&d.tmax===hot.tmax;});
   const coldC=CITIES.find(c=>{const d=latest(c.n);return d&&d.tmin===cold.tmin;});
-  const rainy=all.filter(d=>(d.p??0)>1).length;
   document.getElementById('stats-row').innerHTML=[
     {v:`${avg.toFixed(1)}°C`,l:'全都市 平均気温',c:'#dd6b20'},
     {v:`${fmt1(hot.tmax)}°C`,l:`最高 (${hotC?.ja||''})`,c:'#e53e3e'},
     {v:`${fmt1(cold.tmin)}°C`,l:`最低 (${coldC?.ja||''})`,c:'#3182ce'},
-    {v:`${rainy}/${CITIES.length}都市`,l:'降水あり',c:'#2b6cb0'},
+    {v:`${all.filter(d=>(d.p??0)>1).length}/${CITIES.length}都市`,l:'降水あり',c:'#2b6cb0'},
   ].map(s=>`<div class="stat-card"><div class="stat-val" style="color:${s.c}">${s.v}</div><div class="stat-lbl">${s.l}</div></div>`).join('');
-}
-function getRange(){
-  if(chartDays===0)return null;
-  return daysAgo(chartDays);
 }
 function getAllCitiesAvg(){
   const byDate={};
-  for(const c of CITIES){
-    for(const r of(DB[c.n]||[])){
-      if(!byDate[r.date])byDate[r.date]={tmax:[],tmin:[],tmean:[]};
-      if(r.tmax!=null)byDate[r.date].tmax.push(r.tmax);
-      if(r.tmin!=null)byDate[r.date].tmin.push(r.tmin);
-      if(r.tmean!=null)byDate[r.date].tmean.push(r.tmean);
-    }
+  for(const c of CITIES)for(const r of(DB[c.n]||[])){
+    if(!byDate[r.date])byDate[r.date]={tmax:[],tmin:[],tmean:[]};
+    if(r.tmax!=null)byDate[r.date].tmax.push(r.tmax);
+    if(r.tmin!=null)byDate[r.date].tmin.push(r.tmin);
+    if(r.tmean!=null)byDate[r.date].tmean.push(r.tmean);
   }
   const avg=v=>v.length?+(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1):null;
-  return Object.keys(byDate).sort().map(date=>({
-    date,tmax:avg(byDate[date].tmax),tmin:avg(byDate[date].tmin),
-    tmean:avg(byDate[date].tmean),p:null,wc:null
-  }));
+  return Object.keys(byDate).sort().map(date=>({date,tmax:avg(byDate[date].tmax),tmin:avg(byDate[date].tmin),tmean:avg(byDate[date].tmean),p:null,wc:null}));
 }
 function renderTrend(){
   const isAll=(selCity==='__ALL__');
   const allRows=isAll?getAllCitiesAvg():(DB[selCity]||[]);
-  const cutoff=getRange();
+  const cutoff=chartDays===0?null:daysAgo(chartDays);
   const rows=cutoff?allRows.filter(r=>r.date>=cutoff):allRows;
-  if(trendCh)trendCh.destroy();
-  if(!rows.length)return;
-  const lbl=rows.map(r=>r.date.slice(5));
-  const ctx=document.getElementById('trend-c').getContext('2d');
-  trendCh=new Chart(ctx,{
-    type:'line',
-    data:{labels:lbl,datasets:[
+  if(trendCh)trendCh.destroy();if(!rows.length)return;
+  trendCh=new Chart(document.getElementById('trend-c').getContext('2d'),{
+    type:'line',data:{labels:rows.map(r=>r.date.slice(5)),datasets:[
       {label:'最高',data:rows.map(r=>r.tmax),borderColor:'#e53e3e',backgroundColor:'rgba(229,62,62,.08)',fill:true,pointRadius:0,tension:.3,borderWidth:2},
       {label:'平均',data:rows.map(r=>r.tmean),borderColor:'#ed8936',borderDash:[4,3],fill:false,pointRadius:0,tension:.3,borderWidth:1.5},
       {label:'最低',data:rows.map(r=>r.tmin),borderColor:'#4299e1',backgroundColor:'rgba(66,153,225,.08)',fill:true,pointRadius:0,tension:.3,borderWidth:2},
     ]},
-    options:{responsive:true,maintainAspectRatio:false,
-      interaction:{mode:'index',intersect:false},
-      plugins:{
-        legend:{position:'top',labels:{boxWidth:12,font:{size:12}}},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+      plugins:{legend:{position:'top',labels:{boxWidth:12,font:{size:12}}},
         title:{display:isAll,text:'全都市平均（19都市の日別平均値）',font:{size:13},color:'#4a5568'},
-        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y?.toFixed(1)}°C`}}
-      },
-      scales:{x:{ticks:{maxTicksLimit:14,maxRotation:0,font:{size:11}}},
-        y:{title:{display:true,text:'気温 (°C)',font:{size:11}}}}}
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y?.toFixed(1)}°C`}}},
+      scales:{x:{ticks:{maxTicksLimit:14,maxRotation:0,font:{size:11}}},y:{title:{display:true,text:'気温 (°C)',font:{size:11}}}}}
   });
 }
 function renderCompare(){
   if(cmpCh)cmpCh.destroy();
-  const labels=CITIES.map(c=>c.ja);
-  const ctx=document.getElementById('cmp-c').getContext('2d');
-  cmpCh=new Chart(ctx,{
-    type:'bar',
-    data:{labels,datasets:[
+  cmpCh=new Chart(document.getElementById('cmp-c').getContext('2d'),{
+    type:'bar',data:{labels:CITIES.map(c=>c.ja),datasets:[
       {label:'最高',data:CITIES.map(c=>latest(c.n)?.tmax??null),backgroundColor:'rgba(229,62,62,.75)'},
       {label:'平均',data:CITIES.map(c=>latest(c.n)?.tmean??null),backgroundColor:'rgba(237,137,54,.75)'},
       {label:'最低',data:CITIES.map(c=>latest(c.n)?.tmin??null),backgroundColor:'rgba(66,153,225,.75)'},
@@ -519,24 +404,14 @@ function renderCompare(){
 }
 function renderMonthly(){
   const cn=document.getElementById('monthly-sel').value||selCity;
-  const rows=DB[cn]||[];
-  const byMonth={};
-  for(const r of rows){
-    const ym=r.date.slice(0,7);
-    if(!byMonth[ym])byMonth[ym]={sum:0,cnt:0};
-    if(r.tmean!=null){byMonth[ym].sum+=r.tmean;byMonth[ym].cnt++;}
-  }
+  const rows=DB[cn]||[];const byMonth={};
+  for(const r of rows){const ym=r.date.slice(0,7);if(!byMonth[ym])byMonth[ym]={sum:0,cnt:0};if(r.tmean!=null){byMonth[ym].sum+=r.tmean;byMonth[ym].cnt++;}}
   const months=Object.keys(byMonth).sort();
   const avgs=months.map(m=>byMonth[m].cnt?+(byMonth[m].sum/byMonth[m].cnt).toFixed(1):null);
   if(monthlyCh)monthlyCh.destroy();
-  const ctx=document.getElementById('monthly-c').getContext('2d');
-  monthlyCh=new Chart(ctx,{
-    type:'bar',
-    data:{labels:months,datasets:[{
-      label:'月別平均気温',data:avgs,
-      backgroundColor:avgs.map(v=>v==null?'#e2e8f0':v<5?'rgba(66,153,225,.7)':v<15?'rgba(72,187,120,.7)':v<22?'rgba(237,137,54,.7)':'rgba(229,62,62,.7)'),
-      borderRadius:4,
-    }]},
+  monthlyCh=new Chart(document.getElementById('monthly-c').getContext('2d'),{
+    type:'bar',data:{labels:months,datasets:[{label:'月別平均気温',data:avgs,
+      backgroundColor:avgs.map(v=>v==null?'#e2e8f0':v<5?'rgba(66,153,225,.7)':v<15?'rgba(72,187,120,.7)':v<22?'rgba(237,137,54,.7)':'rgba(229,62,62,.7)'),borderRadius:4}]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.parsed.y}°C`}}},
       scales:{x:{ticks:{maxRotation:45,font:{size:10}}},y:{title:{display:true,text:'°C',font:{size:11}}}}}
@@ -545,46 +420,28 @@ function renderMonthly(){
 function monthlyAvgByYear(cn){
   const sources=cn==='__ALL__'?CITIES.map(c=>DB[c.n]||[]):[DB[cn]||[]];
   const byYM={};
-  for(const rows of sources){
-    for(const r of rows){
-      const yr=r.date.slice(0,4);
-      const mo=r.date.slice(5,7);
-      if(!byYM[yr])byYM[yr]={};
-      if(!byYM[yr][mo])byYM[yr][mo]={sum:0,cnt:0};
-      if(r.tmean!=null){byYM[yr][mo].sum+=r.tmean;byYM[yr][mo].cnt++;}
-    }
+  for(const rows of sources)for(const r of rows){
+    const yr=r.date.slice(0,4),mo=r.date.slice(5,7);
+    if(!byYM[yr])byYM[yr]={};if(!byYM[yr][mo])byYM[yr][mo]={sum:0,cnt:0};
+    if(r.tmean!=null){byYM[yr][mo].sum+=r.tmean;byYM[yr][mo].cnt++;}
   }
   const res={};
-  for(const[yr,months]of Object.entries(byYM)){
-    res[yr]={};
-    for(const[mo,{sum,cnt}]of Object.entries(months)){
-      res[yr][mo]=cnt?+(sum/cnt).toFixed(1):null;
-    }
-  }
+  for(const[yr,months]of Object.entries(byYM)){res[yr]={};for(const[mo,{sum,cnt}]of Object.entries(months))res[yr][mo]=cnt?+(sum/cnt).toFixed(1):null;}
   return res;
 }
 function renderYearComparison(){
   const cn=document.getElementById('ycomp-sel')?.value||selCity;
-  const data=monthlyAvgByYear(cn);
-  const years=Object.keys(data).sort();
+  const data=monthlyAvgByYear(cn);const years=Object.keys(data).sort();
   const MOS=['01','02','03','04','05','06','07','08','09','10','11','12'];
   const MLB=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
   const COLORS={'2024':'#4299e1','2025':'#ed8936','2026':'#e53e3e','2027':'#9f7aea'};
-  const datasets=years.map(yr=>({
-    label:yr+'年',data:MOS.map(m=>data[yr]?.[m]??null),
-    borderColor:COLORS[yr]||'#a0aec0',backgroundColor:'transparent',
-    pointRadius:4,pointHoverRadius:6,tension:.3,borderWidth:2,spanGaps:true,
-  }));
   if(ycompCh)ycompCh.destroy();
-  const ctx=document.getElementById('ycomp-c').getContext('2d');
-  ycompCh=new Chart(ctx,{
-    type:'line',data:{labels:MLB,datasets},
-    options:{responsive:true,maintainAspectRatio:false,
-      interaction:{mode:'index',intersect:false},
-      plugins:{
-        legend:{position:'top',labels:{boxWidth:12,font:{size:12}}},
-        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y?.toFixed(1)}°C`}}
-      },
+  ycompCh=new Chart(document.getElementById('ycomp-c').getContext('2d'),{
+    type:'line',data:{labels:MLB,datasets:years.map(yr=>({label:yr+'年',data:MOS.map(m=>data[yr]?.[m]??null),
+      borderColor:COLORS[yr]||'#a0aec0',backgroundColor:'transparent',pointRadius:4,tension:.3,borderWidth:2,spanGaps:true}))},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+      plugins:{legend:{position:'top',labels:{boxWidth:12,font:{size:12}}},
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y?.toFixed(1)}°C`}}},
       scales:{x:{ticks:{font:{size:11}}},y:{title:{display:true,text:'月平均気温 (°C)',font:{size:11}}}}}
   });
 }
@@ -595,26 +452,15 @@ function renderYearDiff(){
   const data=monthlyAvgByYear(cn);
   const MOS=['01','02','03','04','05','06','07','08','09','10','11','12'];
   const MLB=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
-  const diffs=MOS.map(m=>{
-    const cur=data[baseYr]?.[m],prv=data[prevYr]?.[m];
-    return(cur!=null&&prv!=null)?+(cur-prv).toFixed(1):null;
-  });
+  const diffs=MOS.map(m=>{const cur=data[baseYr]?.[m],prv=data[prevYr]?.[m];return(cur!=null&&prv!=null)?+(cur-prv).toFixed(1):null;});
   if(ydiffCh)ydiffCh.destroy();
-  const ctx=document.getElementById('ydiff-c').getContext('2d');
-  ydiffCh=new Chart(ctx,{
-    type:'bar',
-    data:{labels:MLB,datasets:[{
-      label:`${baseYr} vs ${prevYr}（℃差）`,data:diffs,
-      backgroundColor:diffs.map(v=>v==null?'#e2e8f0':v>=0?'rgba(229,62,62,.72)':'rgba(66,153,225,.72)'),
-      borderRadius:4,
-    }]},
+  ydiffCh=new Chart(document.getElementById('ydiff-c').getContext('2d'),{
+    type:'bar',data:{labels:MLB,datasets:[{label:`${baseYr} vs ${prevYr}（℃差）`,data:diffs,
+      backgroundColor:diffs.map(v=>v==null?'#e2e8f0':v>=0?'rgba(229,62,62,.72)':'rgba(66,153,225,.72)'),borderRadius:4}]},
     options:{responsive:true,maintainAspectRatio:false,
-      plugins:{
-        legend:{display:false},
-        tooltip:{callbacks:{label:c=>{const v=c.parsed.y;return v==null?'データなし':`${v>=0?'+':''}${v}°C`;}}}
-      },
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const v=c.parsed.y;return v==null?'データなし':`${v>=0?'+':''}${v}°C`;}}}},
       scales:{x:{ticks:{font:{size:11}}},y:{title:{display:true,text:'気温差 (°C)',font:{size:11}},
-        grid:{color:ctx2=>ctx2.tick.value===0?'#718096':'#e2e8f0'}}}}
+        grid:{color:c=>c.tick.value===0?'#718096':'#e2e8f0'}}}}
   });
 }
 function renderTable(){
@@ -623,55 +469,38 @@ function renderTable(){
   const rows=[];
   for(const c of CITIES){
     const data=(DB[c.n]||[]).filter(r=>mode==='today'?r.date===today():r.date>=cut);
-    for(const r of data){
-      rows.push([r.date,`${c.f} ${c.ja}`,fmt1(r.tmax)+'°',fmt1(r.tmin)+'°',fmt1(r.tmean)+'°',fmt1(r.p)+' mm',WC[r.wc]||'-']);
-    }
+    for(const r of data)rows.push([r.date,`${c.f} ${c.ja}`,fmt1(r.tmax)+'°',fmt1(r.tmin)+'°',fmt1(r.tmean)+'°',fmt1(r.p)+' mm',WC[r.wc]||'-']);
   }
-  const wrap=document.getElementById('tbl-wrap');
-  wrap.innerHTML='';
+  const wrap=document.getElementById('tbl-wrap');wrap.innerHTML='';
   if(gridInst){try{gridInst.destroy();}catch{}}
-  gridInst=new gridjs.Grid({
-    columns:['日付','都市','最高','最低','平均','降水量','天気'],
-    data:rows,sort:true,pagination:{limit:20},search:true,
+  gridInst=new gridjs.Grid({columns:['日付','都市','最高','最低','平均','降水量','天気'],data:rows,sort:true,
+    pagination:{limit:20},search:true,
     language:{search:{placeholder:'検索...'},pagination:{previous:'◀',next:'▶',showing:'表示',of:'/',to:'〜',results:'件'}},
-    style:{table:{'font-size':'13px'}}
-  }).render(wrap);
+    style:{table:{'font-size':'13px'}}}).render(wrap);
 }
 
-// ================== インタラクション（気象） ==================
 function selectCity(n){
-  selCity=n;
-  document.getElementById('city-sel').value=n;
-  const fallback=(n==='__ALL__')?CITIES[0].n:n;
-  document.getElementById('monthly-sel').value=fallback;
-  const ycs=document.getElementById('ycomp-sel');
-  const yds=document.getElementById('ydiff-sel');
-  if(ycs)ycs.value=fallback; if(yds)yds.value=fallback;
-  renderCityCards();
-  renderTrend();
-  if(n!=='__ALL__'){renderMonthly();renderYearComparison();renderYearDiff();}
+  selCity=n;document.getElementById('city-sel').value=n;
+  const fb=(n==='__ALL__')?CITIES[0].n:n;
+  document.getElementById('monthly-sel').value=fb;
+  const ycs=document.getElementById('ycomp-sel'),yds=document.getElementById('ydiff-sel');
+  if(ycs)ycs.value=fb;if(yds)yds.value=fb;
+  renderCityCards();renderTrend();if(n!=='__ALL__'){renderMonthly();renderYearComparison();renderYearDiff();}
 }
 function onCityChange(){
   selCity=document.getElementById('city-sel').value;
-  const fallback=(selCity==='__ALL__')?CITIES[0].n:selCity;
-  document.getElementById('monthly-sel').value=fallback;
-  const ycs=document.getElementById('ycomp-sel');
-  const yds=document.getElementById('ydiff-sel');
-  if(ycs)ycs.value=fallback; if(yds)yds.value=fallback;
-  renderCityCards();renderTrend();
-  if(selCity!=='__ALL__'){renderMonthly();renderYearComparison();renderYearDiff();}
+  const fb=(selCity==='__ALL__')?CITIES[0].n:selCity;
+  document.getElementById('monthly-sel').value=fb;
+  const ycs=document.getElementById('ycomp-sel'),yds=document.getElementById('ydiff-sel');
+  if(ycs)ycs.value=fb;if(yds)yds.value=fb;
+  renderCityCards();renderTrend();if(selCity!=='__ALL__'){renderMonthly();renderYearComparison();renderYearDiff();}
 }
 function setRange(d,btn){
-  chartDays=d;
-  document.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  renderTrend();
+  chartDays=d;document.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderTrend();
 }
 async function refreshData(){
-  // 経済指標タブが表示中の場合はEcoデータを更新
   if(document.getElementById('tab-eco').style.display!=='none'){
-    ecoLoaded=false;
-    localStorage.removeItem('ramen_eco_v1');
+    ecoLoaded=false;localStorage.removeItem('ramen_eco_v2');
     document.getElementById('eco-loading-div').style.display='block';
     document.getElementById('eco-content').style.display='none';
     document.getElementById('eco-loading-msg').textContent='データを更新中...';
@@ -679,63 +508,38 @@ async function refreshData(){
     catch(e){document.getElementById('eco-loading-msg').textContent='❌ 取得失敗: '+e.message;}
     return;
   }
-  // 気象タブ更新
   document.getElementById('dashboard').style.display='none';
   document.getElementById('loading-sec').style.display='block';
   document.getElementById('loading-main').textContent='データを更新中...';
   setProgress(0,'準備中...');
-  try{
-    const r=await loadData(true);
-    initDashboard(r);
-  }catch(e){
-    alert('更新に失敗しました: '+e.message);
-    document.getElementById('loading-sec').style.display='none';
-    document.getElementById('dashboard').style.display='block';
-  }
+  try{const r=await loadData(true);initDashboard(r);}
+  catch(e){alert('更新に失敗しました: '+e.message);document.getElementById('loading-sec').style.display='none';document.getElementById('dashboard').style.display='block';}
 }
 function exportCSV(){
   const hdr=['date','city','city_ja','temp_max_c','temp_min_c','temp_mean_c','precipitation_mm','weather_code','weather_desc'];
   const rows=[hdr];
-  for(const c of CITIES){
-    for(const r of(DB[c.n]||[])){
-      rows.push([r.date,c.n,c.ja,r.tmax,r.tmin,r.tmean,r.p,r.wc,WC[r.wc]||'']);
-    }
-  }
-  const csv=rows.map(r=>r.join(',')).join('\n');
+  for(const c of CITIES)for(const r of(DB[c.n]||[]))rows.push([r.date,c.n,c.ja,r.tmax,r.tmin,r.tmean,r.p,r.wc,WC[r.wc]||'']);
   const a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,﻿'+encodeURIComponent(csv);
+  a.href='data:text/csv;charset=utf-8,﻿'+encodeURIComponent(rows.map(r=>r.join(',')).join('\n'));
   a.download=`europe_weather_${today()}.csv`;a.click();
 }
 
-// ================== 初期化（気象） ==================
 function initDashboard(result){
   setProgress(100,'完了！');
-  const sel=document.getElementById('city-sel');
-  const msel=document.getElementById('monthly-sel');
+  const sel=document.getElementById('city-sel'),msel=document.getElementById('monthly-sel');
   const cityOpts=CITIES.map(c=>`<option value="${c.n}">${c.ja}</option>`).join('');
   const opts=`<option value="__ALL__">🌍 全都市平均</option>`+cityOpts;
-  sel.innerHTML=opts; sel.value=selCity;
-  msel.innerHTML=cityOpts; msel.value=selCity==='__ALL__'?CITIES[0].n:selCity;
-  const ycs=document.getElementById('ycomp-sel');
-  const yds=document.getElementById('ydiff-sel');
-  if(ycs){ycs.innerHTML=opts; ycs.value=selCity;}
-  if(yds){yds.innerHTML=opts; yds.value=selCity;}
+  sel.innerHTML=opts;sel.value=selCity;msel.innerHTML=cityOpts;msel.value=selCity==='__ALL__'?CITIES[0].n:selCity;
+  const ycs=document.getElementById('ycomp-sel'),yds=document.getElementById('ydiff-sel');
+  if(ycs){ycs.innerHTML=opts;ycs.value=selCity;}if(yds){yds.innerHTML=opts;yds.value=selCity;}
   const latestDate=latest(selCity)?.date||'―';
   document.getElementById('last-updated').textContent='最終: '+latestDate;
   document.getElementById('today-label').textContent=latestDate;
   const sb=document.getElementById('status-bar');
-  if(result.src==='cache'){
-    sb.className='status-bar status-ok';
-    sb.innerHTML=`✅ キャッシュから読み込み（保存日: ${result.saved}）。最新データは「🔄 更新」をクリック。`;
-  }else if(result.src==='api'){
-    sb.className='status-bar status-ok';
-    sb.innerHTML='✅ Open-Meteo API から最新データを取得しました（2024年1月〜本日）';
-  }else{
-    sb.className='status-bar status-demo';
-    sb.innerHTML='ℹ️ デモデータを表示中。「🔄 更新」でAPIから実データを取得できます。';
-  }
-  renderCityCards();renderStats();renderTrend();renderCompare();
-  renderMonthly();renderYearComparison();renderYearDiff();renderTable();
+  if(result.src==='cache'){sb.className='status-bar status-ok';sb.innerHTML=`✅ キャッシュから読み込み（保存日: ${result.saved}）。最新は「🔄 更新」をクリック。`;}
+  else if(result.src==='api'){sb.className='status-bar status-ok';sb.innerHTML='✅ Open-Meteo API から最新データを取得しました（2024年1月〜本日）';}
+  else{sb.className='status-bar status-demo';sb.innerHTML='ℹ️ デモデータ表示中。「🔄 更新」でAPIから実データを取得できます。';}
+  renderCityCards();renderStats();renderTrend();renderCompare();renderMonthly();renderYearComparison();renderYearDiff();renderTable();
   document.getElementById('loading-sec').style.display='none';
   document.getElementById('dashboard').style.display='block';
 }
@@ -758,20 +562,12 @@ const COUNTRIES=[
   {code:'CH',ea:'CH',ja:'スイス',        f:'🇨🇭'},
   {code:'LU',ea:'LU',ja:'ルクセンブルク',f:'🇱🇺'},
 ];
-// 最低賃金が存在しない国（法定制度なし）
-const NO_MIN_WAGE=new Set(['SE','DK','FI','IT','CH']);
-
-const CC={
-  FR:'#4169E1',GB:'#CC0000',DE:'#444',NL:'#FF6600',BE:'#E8B800',
+const CC={FR:'#4169E1',GB:'#CC0000',DE:'#555',NL:'#FF6600',BE:'#E8B800',
   SE:'#006AA7',DK:'#C60C30',IT:'#009246',ES:'#AA151B',PT:'#006600',
-  PL:'#DC143C',FI:'#003580',GR:'#0D5EAF',CH:'#E30613',LU:'#00A1DE'
-};
+  PL:'#DC143C',FI:'#003580',GR:'#0D5EAF',CH:'#E30613',LU:'#00A1DE'};
 
-let ECO_DB=null;
-let infTrendCh=null,infCmpCh=null,wageCh=null,mwCh=null;
-let ecoLoaded=false;
+let ECO_DB=null,rwTrendCh=null,rwCmpCh=null,infTrendCh=null,ecoLoaded=false;
 
-// Eurostat JSON解析
 function parseEurostat(data){
   if(!data||!data.id)return{};
   const dims=data.id,sizes=data.size;
@@ -780,64 +576,65 @@ function parseEurostat(data){
   const mult=new Array(dims.length);
   mult[dims.length-1]=1;
   for(let i=dims.length-2;i>=0;i--)mult[i]=mult[i+1]*sizes[i+1];
-  const geos=Object.entries(data.dimension.geo.category.index);
-  const times=Object.entries(data.dimension.time.category.index);
   const res={};
-  for(const[geo,g]of geos){
+  for(const[geo,g]of Object.entries(data.dimension.geo.category.index)){
     res[geo]={};
-    for(const[period,t]of times){
-      const idx=g*mult[gi]+t*mult[ti];
-      const v=data.value[String(idx)];
+    for(const[period,t]of Object.entries(data.dimension.time.category.index)){
+      const v=data.value[String(g*mult[gi]+t*mult[ti])];
       if(v!=null)res[geo][period]=v;
     }
   }
   return res;
 }
 
+function annualAvgInflation(ea){
+  const monthly=ECO_DB.inflation[ea]||{};
+  const byYear={};
+  for(const[period,val]of Object.entries(monthly)){
+    const yr=period.slice(0,4);
+    if(!byYear[yr])byYear[yr]={sum:0,cnt:0};
+    byYear[yr].sum+=val;byYear[yr].cnt++;
+  }
+  const res={};
+  for(const[yr,{sum,cnt}]of Object.entries(byYear))
+    if(cnt>=6)res[yr]=+(sum/cnt).toFixed(2);
+  return res;
+}
+
+function calcRealWage(ea){
+  const lci=ECO_DB.lci[ea]||{};
+  const cpi=annualAvgInflation(ea);
+  const res={};
+  for(const yr of new Set([...Object.keys(lci),...Object.keys(cpi)]))
+    if(lci[yr]!=null&&cpi[yr]!=null)res[yr]=+(lci[yr]-cpi[yr]).toFixed(2);
+  return res;
+}
+
 async function loadEcoData(force=false){
-  const KEY='ramen_eco_v1';
+  const KEY='ramen_eco_v2';
   const t=today();
   if(!force){
-    try{
-      const s=localStorage.getItem(KEY);
-      if(s){const p=JSON.parse(s);if(p.saved===t||p.saved===daysAgo(1)){ECO_DB=p.db;return{src:'cache',saved:p.saved};}}
-    }catch{}
+    try{const s=localStorage.getItem(KEY);if(s){const p=JSON.parse(s);if(p.saved===t||p.saved===daysAgo(1)){ECO_DB=p.db;return{src:'cache',saved:p.saved};}}}catch{}
   }
   const gp=COUNTRIES.map(c=>`geo=${c.ea}`).join('&');
   const B='https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/';
-
-  async function efetch(url){
-    const r=await fetch(url);
-    if(!r.ok)throw new Error('Eurostat HTTP '+r.status+' '+url.split('?')[0].split('/').pop());
-    return r.json();
-  }
+  async function efetch(url){const r=await fetch(url);if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
 
   document.getElementById('eco-loading-msg').textContent='Eurostat: インフレ率データを取得中...';
-  const inflURL=`${B}prc_hicp_manr?format=JSON&lang=en&freq=M&coicop=CP00&${gp}&sinceTimePeriod=2022-01`;
+  const inflData=await efetch(`${B}prc_hicp_manr?format=JSON&lang=en&freq=M&coicop=CP00&${gp}&sinceTimePeriod=2015-01`);
 
-  document.getElementById('eco-loading-msg').textContent='Eurostat: CPI指数を取得中...';
-  const cpiURL=`${B}prc_hicp_midx?format=JSON&lang=en&freq=M&unit=I15&coicop=CP00&${gp}&sinceTimePeriod=2022-01`;
-
-  const[inflData,cpiData]=await Promise.all([efetch(inflURL),efetch(cpiURL)]);
-
-  document.getElementById('eco-loading-msg').textContent='Eurostat: 労働コスト指数を取得中...';
-  const lciURL=`${B}lc_lci_r2_q?format=JSON&lang=en&freq=Q&indic=LCI&nace_r2=B-S&s_adj=NSA&unit=I16&${gp}&sinceTimePeriod=2022-Q1`;
+  document.getElementById('eco-loading-msg').textContent='Eurostat: 賃金上昇率データを取得中...';
   let lciData=null;
-  try{lciData=await efetch(lciURL);}catch(e){console.warn('LCI:',e);}
-
-  document.getElementById('eco-loading-msg').textContent='Eurostat: 最低賃金データを取得中...';
-  // 最低賃金がある国のみ取得
-  const mwCountries=COUNTRIES.filter(c=>!NO_MIN_WAGE.has(c.code));
-  const mwGp=mwCountries.map(c=>`geo=${c.ea}`).join('&');
-  const mwURL=`${B}earn_mw_avgr2?format=JSON&lang=en&freq=S&currency=EUR&${mwGp}&sinceTimePeriod=2020-S1`;
-  let mwData=null;
-  try{mwData=await efetch(mwURL);}catch(e){console.warn('MW:',e);}
+  for(const nace of['B-S_X_O','B-S','TOTAL']){
+    try{
+      const d=await efetch(`${B}lc_lci_r2_a?format=JSON&lang=en&freq=A&indic=LCI&nace_r2=${nace}&unit=RCH_A&${gp}&sinceTimePeriod=2015`);
+      if(d&&Object.keys(d.value||{}).length>0){lciData=d;console.log('LCI OK nace='+nace);break;}
+    }catch(e){console.warn('LCI nace='+nace+':',e.message);}
+  }
 
   const db={
-    inflation:parseEurostat(inflData),
-    cpi:parseEurostat(cpiData),
-    lci:lciData?parseEurostat(lciData):{},
-    mw:mwData?parseEurostat(mwData):{},
+    inflation: parseEurostat(inflData),
+    lci: lciData ? parseEurostat(lciData) : {},
   };
   ECO_DB=db;
   try{localStorage.setItem(KEY,JSON.stringify({saved:t,db}));}catch{}
@@ -847,22 +644,103 @@ async function loadEcoData(force=false){
 function initEcoSelects(){
   const opts='<option value="__ALL__">🌍 全国比較</option>'+
     COUNTRIES.map(c=>`<option value="${c.code}">${c.f} ${c.ja}</option>`).join('');
-  document.getElementById('eco-country-sel').innerHTML=opts;
-  document.getElementById('wage-country-sel').innerHTML=opts;
-  // 最低賃金セレクトは制度がある国のみ
-  const mwOpts=COUNTRIES.filter(c=>!NO_MIN_WAGE.has(c.code))
-    .map(c=>`<option value="${c.code}">${c.f} ${c.ja}</option>`).join('');
-  document.getElementById('mw-country-sel').innerHTML=mwOpts;
+  document.getElementById('rw-country-sel').innerHTML=opts;
+  document.getElementById('eco-inf-sel').innerHTML=opts;
 }
 
-// インフレ率トレンド
+function renderRealWageTrend(){
+  if(!ECO_DB)return;
+  const sel=document.getElementById('rw-country-sel').value;
+  const allYears=new Set();
+  for(const g of Object.values(ECO_DB.lci))for(const y of Object.keys(g))allYears.add(y);
+  for(const ea of COUNTRIES.map(c=>c.ea)){
+    const cpi=annualAvgInflation(ea);
+    for(const y of Object.keys(cpi))allYears.add(y);
+  }
+  const years=[...allYears].sort().filter(y=>y>='2015');
+  if(rwTrendCh)rwTrendCh.destroy();
+  if(!years.length)return;
+
+  let ds;
+  if(sel==='__ALL__'){
+    ds=COUNTRIES.map(c=>{
+      const rw=calcRealWage(c.ea);
+      const data=years.map(y=>rw[y]??null);
+      if(!data.some(v=>v!=null))return null;
+      return{label:`${c.f} ${c.ja}`,data,borderColor:CC[c.code],backgroundColor:'transparent',
+        pointRadius:3,pointHoverRadius:7,tension:.3,borderWidth:2,spanGaps:true};
+    }).filter(Boolean);
+  }else{
+    const c=COUNTRIES.find(x=>x.code===sel)||COUNTRIES[0];
+    const cpi=annualAvgInflation(c.ea);
+    const lci=ECO_DB.lci[c.ea]||{};
+    const rw=calcRealWage(c.ea);
+    ds=[
+      {label:'賃金上昇率 (LCI%)',data:years.map(y=>lci[y]??null),
+        borderColor:'#4299e1',backgroundColor:'transparent',
+        pointRadius:3,tension:.3,borderWidth:2,borderDash:[6,3],spanGaps:true},
+      {label:'インフレ率 (HICP%)',data:years.map(y=>cpi[y]??null),
+        borderColor:'#ed8936',backgroundColor:'transparent',
+        pointRadius:3,tension:.3,borderWidth:2,borderDash:[4,2],spanGaps:true},
+      {label:'実質賃金成長率',data:years.map(y=>rw[y]??null),
+        borderColor:CC[c.code],backgroundColor:CC[c.code]+'30',fill:true,
+        pointRadius:5,pointHoverRadius:8,tension:.3,borderWidth:3,spanGaps:true},
+    ];
+  }
+
+  rwTrendCh=new Chart(document.getElementById('rw-trend-c').getContext('2d'),{
+    type:'line',data:{labels:years,datasets:ds},
+    options:{responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{position:'top',labels:{boxWidth:10,font:{size:10}}},
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y?.toFixed(1)}%`}}
+      },
+      scales:{
+        x:{ticks:{font:{size:11}}},
+        y:{title:{display:true,text:'%',font:{size:11}},
+          grid:{color:c=>c.tick.value===0?'#64748b':'#e2e8f0'}}
+      }}
+  });
+}
+
+function renderRealWageCompare(){
+  if(!ECO_DB)return;
+  const items=COUNTRIES.map(c=>{
+    const rw=calcRealWage(c.ea);
+    const years=Object.keys(rw).sort();
+    if(!years.length)return null;
+    const yr=years[years.length-1];
+    return{c,yr,v:rw[yr]};
+  }).filter(Boolean);
+  if(!items.length)return;
+  const maxYr=[...new Set(items.map(x=>x.yr))].sort().pop();
+  document.getElementById('rw-latest-year').textContent=`直近データ年: ${maxYr}年`;
+  const sorted=items.sort((a,b)=>b.v-a.v);
+  const vals=sorted.map(x=>x.v);
+  if(rwCmpCh)rwCmpCh.destroy();
+  rwCmpCh=new Chart(document.getElementById('rw-cmp-c').getContext('2d'),{
+    type:'bar',
+    data:{labels:sorted.map(x=>`${x.c.f} ${x.c.ja}`),datasets:[{
+      label:'実質賃金成長率 (%)',data:vals,
+      backgroundColor:vals.map(v=>v>=0?'rgba(72,187,120,.85)':'rgba(229,62,62,.85)'),
+      borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>`${c.parsed.y>=0?'+':''}${c.parsed.y?.toFixed(1)}% (${sorted[c.dataIndex]?.yr}年)`}}},
+      scales:{x:{ticks:{font:{size:11}}},
+        y:{title:{display:true,text:'%',font:{size:11}},
+          grid:{color:c=>c.tick.value===0?'#64748b':'#e2e8f0'}}}}
+  });
+}
+
 function renderInflationTrend(){
   if(!ECO_DB)return;
-  const sel=document.getElementById('eco-country-sel').value;
+  const sel=document.getElementById('eco-inf-sel').value;
   const infl=ECO_DB.inflation||{};
   const allP=new Set();
   for(const g of Object.values(infl))for(const p of Object.keys(g))allP.add(p);
-  const periods=[...allP].sort().filter(p=>p>='2022-01');
+  const periods=[...allP].sort().filter(p=>p>='2015-01');
   const lbl=periods.map(p=>p.slice(2));
   let ds;
   if(sel==='__ALL__'){
@@ -891,179 +769,36 @@ function renderInflationTrend(){
       scales:{
         x:{ticks:{maxTicksLimit:18,maxRotation:45,font:{size:10}}},
         y:{title:{display:true,text:'前年比 (%)',font:{size:11}},
-          grid:{color:c=>c.tick.value===0?'#94a3b8':'#e2e8f0'}}
+          grid:{color:c=>c.tick.value===0?'#64748b':'#e2e8f0'}}
       }}
   });
-}
-
-// 最新インフレ率 国別比較
-function renderInflationCompare(){
-  if(!ECO_DB)return;
-  const infl=ECO_DB.inflation||{};
-  const latest={};
-  for(const c of COUNTRIES){
-    const gd=infl[c.ea]||{};
-    const ps=Object.keys(gd).sort();
-    if(ps.length){const lp=ps[ps.length-1];latest[c.code]={period:lp,v:gd[lp]};}
-  }
-  const globalLatest=[...new Set(Object.values(latest).map(x=>x?.period).filter(Boolean))].sort().pop()||'';
-  document.getElementById('inflation-latest-period').textContent=globalLatest?`最新: ${globalLatest}`:'';
-  const sorted=COUNTRIES.filter(c=>latest[c.code]!=null)
-    .sort((a,b)=>(latest[b.code]?.v??-99)-(latest[a.code]?.v??-99));
-  const vals=sorted.map(c=>latest[c.code]?.v??null);
-  const colors=vals.map(v=>v>5?'rgba(229,62,62,.8)':v>3?'rgba(237,137,54,.8)':v>1.5?'rgba(72,187,120,.8)':'rgba(66,153,225,.8)');
-  if(infCmpCh)infCmpCh.destroy();
-  infCmpCh=new Chart(document.getElementById('inflation-cmp-c').getContext('2d'),{
-    type:'bar',
-    data:{labels:sorted.map(c=>`${c.f} ${c.ja}`),datasets:[{
-      label:'インフレ率 (%)',data:vals,backgroundColor:colors,borderRadius:4}]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.parsed.y?.toFixed(1)}%`}}},
-      scales:{x:{ticks:{font:{size:11}}},y:{title:{display:true,text:'前年比 (%)',font:{size:11}}}}}
-  });
-}
-
-// 労働コスト指数（前年同期比）
-function renderWageGrowth(){
-  if(!ECO_DB)return;
-  const sel=document.getElementById('wage-country-sel').value;
-  const lci=ECO_DB.lci||{};
-  const allQ=new Set();
-  for(const g of Object.values(lci))for(const p of Object.keys(g))allQ.add(p);
-  const quarters=[...allQ].sort().filter(p=>p>='2022');
-  function yoy(gd,qs){
-    return qs.map(p=>{
-      const cur=gd[p];if(cur==null)return null;
-      const[yr,q]=p.split('-');
-      const prev=gd[`${+yr-1}-${q}`];
-      return prev&&prev!==0?+((cur/prev-1)*100).toFixed(2):null;
-    });
-  }
-  let ds;
-  if(sel==='__ALL__'){
-    ds=COUNTRIES.map(c=>{
-      const gd=lci[c.ea]||{};
-      const data=yoy(gd,quarters);
-      if(!data.some(v=>v!=null))return null;
-      return{label:`${c.f} ${c.ja}`,data,borderColor:CC[c.code],backgroundColor:'transparent',
-        pointRadius:3,pointHoverRadius:6,tension:.3,borderWidth:1.5,spanGaps:true};
-    }).filter(Boolean);
-  }else{
-    const c=COUNTRIES.find(x=>x.code===sel)||COUNTRIES[0];
-    const gd=lci[c.ea]||{};
-    ds=[{label:`${c.f} ${c.ja} 労働コスト前年比`,data:yoy(gd,quarters),
-      borderColor:CC[c.code],backgroundColor:CC[c.code]+'22',fill:true,
-      pointRadius:4,tension:.3,borderWidth:2,spanGaps:true}];
-  }
-  if(wageCh)wageCh.destroy();
-  wageCh=new Chart(document.getElementById('wage-c').getContext('2d'),{
-    type:'line',data:{labels:quarters,datasets:ds},
-    options:{responsive:true,maintainAspectRatio:false,
-      interaction:{mode:'index',intersect:false},
-      plugins:{
-        legend:{position:'top',labels:{boxWidth:10,font:{size:10}}},
-        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y?.toFixed(1)}%`}}
-      },
-      scales:{
-        x:{ticks:{font:{size:11}}},
-        y:{title:{display:true,text:'前年比 (%)',font:{size:11}},
-          grid:{color:c=>c.tick.value===0?'#94a3b8':'#e2e8f0'}}
-      }}
-  });
-}
-
-// 最低賃金
-function onMwViewChange(){
-  const view=document.getElementById('mw-view-sel').value;
-  document.getElementById('mw-country-sel').style.display=(view==='trend')?'inline-block':'none';
-  renderMinWage();
-}
-function renderMinWage(){
-  if(!ECO_DB)return;
-  const view=document.getElementById('mw-view-sel').value;
-  const mw=ECO_DB.mw||{};
-  const mwCties=COUNTRIES.filter(c=>!NO_MIN_WAGE.has(c.code));
-
-  if(view==='bar'){
-    // 最新の S1値（各国の最新半期）を比較
-    const latest={};
-    for(const c of mwCties){
-      const gd=mw[c.ea]||{};
-      const ps=Object.keys(gd).sort();
-      if(ps.length){const lp=ps[ps.length-1];latest[c.code]={period:lp,v:gd[lp]};}
-    }
-    const sorted=mwCties.filter(c=>latest[c.code]!=null)
-      .sort((a,b)=>(latest[b.code]?.v??0)-(latest[a.code]?.v??0));
-    const vals=sorted.map(c=>latest[c.code]?.v??null);
-    if(mwCh)mwCh.destroy();
-    mwCh=new Chart(document.getElementById('mw-c').getContext('2d'),{
-      type:'bar',
-      data:{labels:sorted.map(c=>`${c.f} ${c.ja}`),datasets:[{
-        label:'最低賃金 (EUR/月)',data:vals,
-        backgroundColor:sorted.map(c=>CC[c.code]+'CC'),
-        borderRadius:4}]},
-      options:{responsive:true,maintainAspectRatio:false,
-        plugins:{legend:{display:false},
-          tooltip:{callbacks:{label:c=>`€${c.parsed.y?.toLocaleString()}/月`}}},
-        scales:{x:{ticks:{font:{size:11}}},
-          y:{title:{display:true,text:'EUR/月',font:{size:11}},
-            ticks:{callback:v=>`€${v.toLocaleString()}`}}}}
-    });
-  }else{
-    // 推移トレンド（選択国または全国）
-    const sel=document.getElementById('mw-country-sel').value;
-    // S1（1月）のみ使用して年次トレンドを作成
-    const allP=new Set();
-    for(const c of mwCties){
-      const gd=mw[c.ea]||{};
-      for(const p of Object.keys(gd))if(p.endsWith('-S1'))allP.add(p);
-    }
-    const periods=[...allP].sort();
-    const labels=periods.map(p=>p.replace('-S1','年1月'));
-    const c=mwCties.find(x=>x.code===sel)||mwCties[0];
-    const gd=mw[c.ea]||{};
-    const data=periods.map(p=>gd[p]??null);
-    if(mwCh)mwCh.destroy();
-    mwCh=new Chart(document.getElementById('mw-c').getContext('2d'),{
-      type:'line',
-      data:{labels,datasets:[{
-        label:`${c.f} ${c.ja} 最低賃金`,data,
-        borderColor:CC[c.code],backgroundColor:CC[c.code]+'22',fill:true,
-        pointRadius:4,tension:.3,borderWidth:2,spanGaps:true}]},
-      options:{responsive:true,maintainAspectRatio:false,
-        plugins:{legend:{position:'top',labels:{boxWidth:10,font:{size:10}}},
-          tooltip:{callbacks:{label:c=>`€${c.parsed.y?.toLocaleString()}/月`}}},
-        scales:{x:{ticks:{font:{size:11}}},
-          y:{title:{display:true,text:'EUR/月',font:{size:11}},
-            ticks:{callback:v=>`€${v.toLocaleString()}`}}}}
-    });
-  }
 }
 
 function renderEcoDashboard(result){
   initEcoSelects();
+  renderRealWageTrend();
+  renderRealWageCompare();
   renderInflationTrend();
-  renderInflationCompare();
-  renderWageGrowth();
-  renderMinWage();
   const sb=document.getElementById('eco-status-bar');
   sb.style.display='flex';
+  const hasLCI=Object.values(ECO_DB.lci||{}).some(g=>Object.keys(g).length>0);
   if(result.src==='cache'){
     sb.className='status-bar status-ok';
     sb.innerHTML=`✅ キャッシュから読み込み（保存日: ${result.saved}）。最新は「🔄 更新」をクリック。`;
-  }else{
+  }else if(hasLCI){
     sb.className='status-bar status-ok';
-    sb.innerHTML='✅ Eurostat から最新経済指標を取得しました（インフレ率・労働コスト・最低賃金 ／ 2022年〜）';
+    sb.innerHTML='✅ Eurostat から最新データを取得しました（HICP月次インフレ + LCI年次賃金上昇率 ／ 2015年〜）';
+  }else{
+    sb.className='status-bar status-warn';
+    sb.innerHTML='⚠️ インフレ率は取得できましたが、労働コスト指数（LCI）の取得に失敗しました。実質賃金グラフは表示できません。「🔄 更新」で再試行してください。';
   }
   document.getElementById('eco-loading-div').style.display='none';
   document.getElementById('eco-content').style.display='block';
 }
 
 async function switchTab(tab){
-  const wt=document.getElementById('tab-weather');
-  const et=document.getElementById('tab-eco');
-  const wb=document.getElementById('tab-weather-btn');
-  const eb=document.getElementById('tab-eco-btn');
+  const wt=document.getElementById('tab-weather'),et=document.getElementById('tab-eco');
+  const wb=document.getElementById('tab-weather-btn'),eb=document.getElementById('tab-eco-btn');
   if(tab==='weather'){
     wt.style.display='block';et.style.display='none';
     wb.classList.add('active');eb.classList.remove('active');
@@ -1076,29 +811,22 @@ async function switchTab(tab){
       document.getElementById('eco-content').style.display='none';
       document.getElementById('eco-loading-msg').textContent='Eurostatからデータを取得中...';
       try{const r=await loadEcoData();renderEcoDashboard(r);}
-      catch(e){
-        console.error(e);
-        document.getElementById('eco-loading-msg').textContent='❌ データ取得失敗: '+e.message;
-      }
+      catch(e){console.error(e);document.getElementById('eco-loading-msg').textContent='❌ データ取得失敗: '+e.message;}
     }
   }
 }
 
-// ================== 起動 ==================
 (async()=>{
   try{
     setProgress(5,'キャッシュ確認中...');
-    const r=await loadData(false);
-    initDashboard(r);
+    const r=await loadData(false);initDashboard(r);
   }catch(e){
     console.error(e);
     document.getElementById('loading-main').textContent='ネットワークエラー';
     document.getElementById('loading-city').textContent=e.message;
     const s=storageLoad();
-    if(s){
-      DB=s.db;
-      initDashboard({src:'cache',saved:s.saved});
-    }else{
+    if(s){DB=s.db;initDashboard({src:'cache',saved:s.saved});}
+    else{
       setProgress(0);
       document.getElementById('loading-city').textContent='⚠️ データ取得に失敗。インターネット接続を確認し「🔄 更新」を試してください。';
       setTimeout(()=>{
