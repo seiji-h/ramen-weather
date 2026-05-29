@@ -568,6 +568,7 @@ const CC={FR:'#4169E1',GB:'#CC0000',DE:'#555',NL:'#FF6600',BE:'#E8B800',
 
 let ECO_DB=null,rwTrendCh=null,rwCmpCh=null,infTrendCh=null,ecoLoaded=false;
 
+// Eurostat JSON汎用パーサ
 function parseEurostat(data){
   if(!data||!data.id)return{};
   const dims=data.id,sizes=data.size;
@@ -587,6 +588,7 @@ function parseEurostat(data){
   return res;
 }
 
+// 月次HICPを年次平均に集計（6ヶ月以上あれば算出）
 function annualAvgInflation(ea){
   const monthly=ECO_DB.inflation[ea]||{};
   const byYear={};
@@ -601,6 +603,7 @@ function annualAvgInflation(ea){
   return res;
 }
 
+// 実質賃金 = 賃金上昇率(LCI%) - インフレ率(HICP年次平均%)
 function calcRealWage(ea){
   const lci=ECO_DB.lci[ea]||{};
   const cpi=annualAvgInflation(ea);
@@ -617,17 +620,22 @@ async function loadEcoData(force=false){
     try{const s=localStorage.getItem(KEY);if(s){const p=JSON.parse(s);if(p.saved===t||p.saved===daysAgo(1)){ECO_DB=p.db;return{src:'cache',saved:p.saved};}}}catch{}
   }
   const gp=COUNTRIES.map(c=>`geo=${c.ea}`).join('&');
+  // LCIはEU/EEA対象データセット — CH（非EU）は含まれないため除外
+  const LCI_CODES=['FR','UK','DE','NL','BE','SE','DK','IT','ES','PT','PL','FI','EL','LU'];
+  const gpLCI=LCI_CODES.map(c=>`geo=${c}`).join('&');
   const B='https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/';
   async function efetch(url){const r=await fetch(url);if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
 
+  // 1. 月次インフレ率（HICP前年比）— 全15カ国
   document.getElementById('eco-loading-msg').textContent='Eurostat: インフレ率データを取得中...';
   const inflData=await efetch(`${B}prc_hicp_manr?format=JSON&lang=en&freq=M&coicop=CP00&${gp}&sinceTimePeriod=2015-01`);
 
+  // 2. 年次労働コスト指数（前年比%）— CH除くEU14カ国、nace_r2を順に試みる
   document.getElementById('eco-loading-msg').textContent='Eurostat: 賃金上昇率データを取得中...';
   let lciData=null;
   for(const nace of['B-S_X_O','B-S','TOTAL']){
     try{
-      const d=await efetch(`${B}lc_lci_r2_a?format=JSON&lang=en&freq=A&indic=LCI&nace_r2=${nace}&unit=RCH_A&${gp}&sinceTimePeriod=2015`);
+      const d=await efetch(`${B}lc_lci_r2_a?format=JSON&lang=en&freq=A&indic=LCI&nace_r2=${nace}&unit=RCH_A&${gpLCI}&sinceTimePeriod=2015`);
       if(d&&Object.keys(d.value||{}).length>0){lciData=d;console.log('LCI OK nace='+nace);break;}
     }catch(e){console.warn('LCI nace='+nace+':',e.message);}
   }
@@ -648,6 +656,7 @@ function initEcoSelects(){
   document.getElementById('eco-inf-sel').innerHTML=opts;
 }
 
+// 実質賃金トレンド
 function renderRealWageTrend(){
   if(!ECO_DB)return;
   const sel=document.getElementById('rw-country-sel').value;
@@ -704,6 +713,7 @@ function renderRealWageTrend(){
   });
 }
 
+// 実質賃金 国別比較バー（最新年）
 function renderRealWageCompare(){
   if(!ECO_DB)return;
   const items=COUNTRIES.map(c=>{
@@ -734,6 +744,7 @@ function renderRealWageCompare(){
   });
 }
 
+// インフレ率参考（月次）
 function renderInflationTrend(){
   if(!ECO_DB)return;
   const sel=document.getElementById('eco-inf-sel').value;
@@ -816,6 +827,7 @@ async function switchTab(tab){
   }
 }
 
+// ================== 起動 ==================
 (async()=>{
   try{
     setProgress(5,'キャッシュ確認中...');
